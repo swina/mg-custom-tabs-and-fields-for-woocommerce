@@ -1,6 +1,7 @@
 # Custom Tabs & Fields for Woocommerce
 Custom Tabs & Fields for Woocommerce is a Wordpress plugin to add custom tabs and custom rich-text fields to Woocommerce products.
 
+![Alt text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/banner-772x250.jpg)
 ## Features
 
 - Create/Disable/Delete custom tabs for Woocommerce products
