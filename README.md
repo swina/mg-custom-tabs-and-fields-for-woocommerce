@@ -29,6 +29,21 @@ After adding your Custom Tabs and editing your Custom Fields for the product the
 Add custom fields to the single page meta section, setting the flag Product Page Meta to checked. 
 Define your custom fields order dragging the custom fields rows to meet your needs.
 
+### Main Screen
+![Alt_text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/screenshot-1.png)
+
+### Custom Tabs list screen (admin)
+![Alt_text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/screenshot-2.png)
+### Custom Tab edit screen (admin)
+![Alt_text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/screenshot-3.png)
+### Custom Fields list screen (admin)
+![Alt_text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/screenshot-4.png)
+### Custom Field edit screen (admin)
+![Alt_text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/screenshot-5.png)
+
+### Product single page (demo)
+![Alt_text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/screenshot-6.png)
+
 ## Import and Optimize DB
 
 You can import your custom fields using the Woocommerce Import feature. 
