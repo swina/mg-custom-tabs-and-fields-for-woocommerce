@@ -1,0 +1,19 @@
+.btn-cf {
+  color: #7face5;
+}
+.btn-cf:hover {
+  color: #4f76a7;
+}
+
+.btn-orange {
+  background-color: orange!important;
+  color:#000;
+  box-shadow:unset;
+  border:1px solid #888;
+}
+
+.hide { display:none; }
+
+.product_custom_field p label { display:block!important;width:100%;font-weight:bold; }
+
+.cfmb_new_option, input.cfmb_new_option { font-size:1.3em!important; }
