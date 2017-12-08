@@ -38,7 +38,7 @@ Define your custom fields order dragging the custom fields rows to meet your nee
 ![Alt_text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/screenshot-3.png)
 ### Custom Fields list screen (admin)
 ![Alt_text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/screenshot-4.png)
-### Custom Field edit screen (admin)
+### Product edit screen -> custom fields metabox (admin)
 ![Alt_text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/screenshot-5.png)
 
 ### Product single page (demo)
