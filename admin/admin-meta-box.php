@@ -4,7 +4,7 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 //showing custom meta box for tabs
-function show_custom_meta_box_mg_wc_tab() {
+function mg_ctcf_show_custom_meta_box_mg_wc_tab() {
   global $post;
   $settings = array(
     'quicktags' => array('buttons' => 'em,strong,link',),
@@ -18,6 +18,11 @@ function show_custom_meta_box_mg_wc_tab() {
   $order = get_post_meta( $post->ID, 'mg_wc_tab_order', true );
   $active = get_post_meta( $post->ID, 'mg_wc_tab_active', true );
   $footer = get_post_meta( $post->ID, 'mg_wc_tab_footer', true );
+  //default order if not set or new tab
+  if ( !$order ){
+    $order = 10;
+  }
+  //active checkbox
   $checked = '';
   if ( $active ) $checked = 'checked';
 ?>
@@ -40,15 +45,16 @@ function show_custom_meta_box_mg_wc_tab() {
 <?php
 }
 
-function show_custom_meta_box_mg_wc_tab_fields(){
+function mg_ctcf_show_custom_meta_box_mg_wc_tab_fields(){
   global $post;
   if ( isset($_POST['mg_wc_tab_custom_fields']) ){
-    print_r($_POST['mg_wc_tab_custom_fields']);
+    print_r(sanitize_text($_POST['mg_wc_tab_custom_fields']));
   }
   $fields = get_option('mg_wc_cfmb');
   ?>
   <ul>
     <?php
+    if ( $fields ){
     foreach ( $fields AS $field ){
       $checked = '';
       if ( get_post_meta( $post->ID, 'mg_wc_tab_custom_field_'.$field['name'], true ) ){
@@ -56,12 +62,13 @@ function show_custom_meta_box_mg_wc_tab_fields(){
       }
       echo '<li><input type="checkbox" name="mg_wc_tab_custom_field_'.$field['name'].'" value="'.$field['name'].'"'.$checked.'>'.$field['label'].'</li>';
     }
+    }
     ?>
   </ul>
   <?php
 }
 
-function show_product_meta_box_mg_wc_custom_fields(){
+function mg_ctcf_show_product_meta_box_mg_wc_custom_fields(){
   ?>
   <div class="product_custom_field">'
   <?php
@@ -81,22 +88,25 @@ function show_product_meta_box_mg_wc_custom_fields(){
     $aFieldsAdd = [];
     ?>
     <div class="custom_fields">
+
     <?php
+    if ( $options ){
+
     foreach ( $options AS $key=>$value ){
 
     if ( !$value['custom_tab'] ){
       $field = $value['name'];
       $content = '';
-      if ( $au_meta['_cf_'.$field] ){
-        $meta = $au_meta['_cf_'.$field];
+      if ( $au_meta['mg_cf_'.$field] ){
+        $meta = $au_meta['mg_cf_'.$field];
         $content = $meta[0];
       }
 
       if ( $content != '' ){ ?>
         <div class="custom_field_saved_<?php echo $value['name'];?>">
-          <h3><?php echo $value['label'];?></h3>
-          <textarea style="width:100%;" id="_cf_<?php echo $value['name'];?>_textarea" name="_cf_<?php echo $value['name']?>"><?php echo $content;?></textarea>
-          <span class="btn-editor btn-cf" data-field="_cf_<?php echo $value['name'];?>" data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><span class="dashicons dashicons-edit"></span> Editor</span>
+          <h3><?php echo esc_attr($value['label']);?></h3>
+          <textarea style="width:100%;" id="mg_cf_<?php echo $value['name'];?>_textarea" name="mg_cf_<?php echo $value['name']?>"><?php echo esc_attr($content);?></textarea>
+          <span class="btn-editor btn-cf" data-field="mg_cf_<?php echo $value['name'];?>" data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><span class="dashicons dashicons-edit"></span> Editor</span>
           <span class="btn-field-remove-saved btn-cf" data-field="<?php echo $value['name'];?>" style="cursor:pointer;">
           <span class="dashicons dashicons-trash"></span>
           Remove</span>
@@ -110,6 +120,7 @@ function show_product_meta_box_mg_wc_custom_fields(){
         );
         array_push($aFieldsAdd,$a);
       }
+    }
     }
     }
     ?>
@@ -145,7 +156,7 @@ function show_product_meta_box_mg_wc_custom_fields(){
 
       <div class="modal-body">
       <?php
-        wp_editor( htmlspecialchars_decode($content) , '_cf_editor',$settings );
+        wp_editor( htmlspecialchars_decode($content) , 'mg_cf_editor',$settings );
       ?>
       </div>
       <div class="modal-footer"><button class="button button-default" type="button" data-dismiss="modal">Close</button>

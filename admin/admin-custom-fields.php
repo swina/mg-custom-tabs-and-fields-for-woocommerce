@@ -5,9 +5,9 @@ if ( !defined( 'ABSPATH' ) ) exit;
 
 
 
-function mg_wc_custom_fields_manager(){
-  if ( isset($_POST['mg_wc_cfmb_save']) ){
-    $values = mg_wc_custom_fields_save();
+function mg_ctcf_custom_fields_manager(){
+  if ( isset($_POST['mg_ctcf_save']) ){
+    $values = mg_ctcf_custom_fields_save();
   } else {
     $values = get_option('mg_wc_cfmb');
   }
@@ -15,7 +15,7 @@ function mg_wc_custom_fields_manager(){
   ?>
 <h1>Custom Fields for Woocommerce</h1>
 <form method="POST" id="cfmb_form">
-<table class="wp-list-table widefat fixed striped tags ui-sortable">
+<table class="wp-list-table widefat fixed striped tags ui-sortable custom-fields-table">
   <tr>
     <td colspan="6">
       <div class="aler alert-warning" style="width:100%;background:#ffc377;padding:10px;border:2px solid #db7e0a;display:none">You settings are changed. Save your changes</div>
@@ -36,10 +36,10 @@ function mg_wc_custom_fields_manager(){
     <th></th>
   </tr>
   <tbody class="ui-sortable field_rows">
-  <input type="hidden" name="mg_wc_cfmb_save" value="1">
+  <input type="hidden" name="mg_ctcf_save" value="1">
 
 <?php
-
+    if ( $values ){
     foreach ( $values AS $key=>$v ){
       if ( isset($v['name']) ){
         ?>
@@ -65,9 +65,7 @@ function mg_wc_custom_fields_manager(){
         </tr>
       <?php
       }
-      if ( isset($v['custom_tab']) ){
-        $custom_tab = $v['custom_tab'];
-      }
+     }
     }
     ?>
   </tbody>
@@ -93,7 +91,7 @@ function mg_wc_custom_fields_manager(){
     <tr class="hide">
       <td colspan="6" class="left">
         <strong>Tab name</strong>
-        <input type="text" placeholder="description" name="custom_tab_name" value="<?php echo $custom_tab['tab_name']; ?>" size="50" /> <small>Assign a new name to the description tab or to the new tab</small>
+        <input type="text" placeholder="description" name="custom_tab_name" value="<?php echo esc_attr($custom_tab['tab_name']); ?>" size="50" /> <small>Assign a new name to the description tab or to the new tab</small>
       </td>
     </tr>
     <tr class="hide">
@@ -112,30 +110,30 @@ function mg_wc_custom_fields_manager(){
 <?php
 }
 
-function mg_wc_custom_fields_save(){
+function mg_ctcf_custom_fields_save(){
   $value = get_option('mg_wc_cfmb');
-
-    $options = [];
+  $options = [];
+  if ( is_array($_POST) ){
     foreach (array_keys($_POST) as $field){
       if ( strpos($field,'name_') > -1 ){
         $name = str_replace('name_','',$field);
         $a = array (
           'name'    => $name,
-          'label'   => $_POST['label_'.$name],
-          'active'  => esc_attr($_POST['active_'.$name]) == 'on' ? '1':'0',
-          'meta'    => esc_attr($_POST['meta_'.$name]) == 'on' ? '1' : '0',
-          'tab'     => $_POST['tab_'.$name]
+          'label'   => sanitize_text_field($_POST['label_'.$name]),
+          'active'  => sanitize_text_field($_POST['active_'.$name]) == 'on' ? '1':'0',
+          'meta'    => sanitize_text_field($_POST['meta_'.$name]) == 'on' ? '1' : '0',
+          'tab'     => sanitize_text_field($_POST['tab_'.$name])
         );
         array_push($options,$a);
 
       }
     }
     update_option('mg_wc_cfmb', $options);
-    if ( isset($_POST['cfmb_new_field']) && $_POST['cfmb_new_field'] != ''){
-      $name = str_replace(' ','',strtolower($_POST['cfmb_new_field']));
+    if ( isset($_POST['cfmb_new_field']) &&  strlen($_POST['cfmb_new_field']) > 2 ){
+      $name = str_replace(' ','',strtolower(sanitize_text_field($_POST['cfmb_new_field'])));
       $a = array (
           'name'    => $name,
-          'label'   => $_POST['cfmb_new_field'],
+          'label'   => sanitize_text_field($_POST['cfmb_new_field']),
           'active'  => 1,
           'meta'    => 0,
           'tab'     => 'description'
@@ -144,18 +142,19 @@ function mg_wc_custom_fields_save(){
       update_option('mg_wc_cfmb', $options);
       $value = $options;
     }
+  }
   return $options;
 }
 
 function mg_db_optimize(){
   global $wpdb;
   $optimized = false;
-  if ( isset($_POST['mg_wc_cfmb_optimize']) && $_POST['mg_wc_cfmb_optimize'] == '1' ){
-    $wpdb->query("DELETE FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE '_cf_%' AND meta_value = ''");
+  if ( isset($_POST['mg_wc_cfmb_optimize']) && int($_POST['mg_wc_cfmb_optimize']) == 1 ){
+    $wpdb->query("DELETE FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE 'mg_cf_%' AND meta_value = ''");
     $optimized = true;
   }
-  $optimize = $wpdb->query("SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE '_cf_%' AND meta_value = ''");
-  $current = $wpdb->query("SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE '_cf_%'");
+  $optimize = $wpdb->query("SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE 'mg_cf_%' AND meta_value = ''");
+  $current = $wpdb->query("SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE 'mg_cf_%'");
   ?>
   <form method="POST">
     <input type="hidden" name="mg_wc_cfmb_optimize" value="1">
@@ -163,8 +162,8 @@ function mg_db_optimize(){
     <h3>Database optimization</h3>
     <p>This option checks if your products database has empty custom fields. You can clean all the empty data in order to improve your database performance</p>
     <p>
-    You have <?php echo $current;?> custom fields.<br>
-    You have <?php echo $optimize;?> records to optimize.
+    You have <?php echo esc_attr($current);?> custom fields.<br>
+    You have <?php echo esc_attr($optimize);?> records to optimize.
     </p>
     <?php if ( $optimized ) { ?> <h3>Database optimized!</h3> <?php }?>
     <?php if ( (int)$optimize > 0 ) {

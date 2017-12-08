@@ -13,14 +13,14 @@ jQuery(document).ready(function(){
     var editor = jQuery(this).data('field')+'-wrap';
     var field = jQuery(this).data('field');
     jQuery('.btn-save-cfmb').attr('data-field',field);
-    var editor = tinymce.get('_cf_editor');
+    var editor = tinymce.get('mg_cf_editor');
     // use your own editor id here
     editor.setContent(jQuery('#' + field + '_textarea' ).val());
   })
 
   //copy wp_editor content to field textarea
   jQuery('.btn-save-cfmb').on('click',function(){
-    var editor = tinymce.get('_cf_editor');
+    var editor = tinymce.get('mg_cf_editor');
     jQuery('#' + jQuery(this).data('field') + '_textarea').val ( editor.getContent());
     jQuery('#myModal').modal('hide');
   })
@@ -29,9 +29,9 @@ jQuery(document).ready(function(){
   jQuery('.btn-field-remove-saved').on('click',function(){
     var obj = jQuery(this);
     var target = jQuery('.custom_field_saved_' + obj.data('field') );
-    var txt_to_clear = jQuery('#_cf_' + obj.data('field') + '_textarea');
+    var txt_to_clear = jQuery('#mg_cf_' + obj.data('field') + '_textarea');
     target.css('display','none');
-    jQuery('#_cf_' + obj.data('field') + '_textarea').val('');
+    jQuery('#mg_cf_' + obj.data('field') + '_textarea').val('');
   })
 
   //add a custom field to the product edit screen metabox
@@ -42,8 +42,8 @@ jQuery(document).ready(function(){
       jQuery('.custom_fields').append(
         '\
         <div class="custom_field_'+obj.val()+'"><h3>' + txt + '</h3>\
-        <textarea id="_cf_' + obj.val() + '_textarea" name="_cf_' + obj.val() + '" style="width:100%;"></textarea>\
-        <span class="btn-editor" data-field="_cf_' + obj.val() + '" data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><span class="dashicons dashicons-edit"></span> Editor</span> \
+        <textarea id="mg_cf_' + obj.val() + '_textarea" name="mg_cf_' + obj.val() + '" style="width:100%;"></textarea>\
+        <span class="btn-editor" data-field="mg_cf_' + obj.val() + '" data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><span class="dashicons dashicons-edit"></span> Editor</span> \
         <span class="btn-field-remove" data-field="' + obj.val() + '" style="cursor:pointer;">\
         <span class="dashicons dashicons-trash"></span> \
         Remove</span></div>'
@@ -63,14 +63,14 @@ jQuery(document).ready(function(){
   jQuery(document).delegate('.btn-custom-field-preview','click',function(){
     var obj = jQuery(this);
     var id = obj.data('field');
-    var txt = jQuery('#_cf_' + id + '_textarea').val();
+    var txt = jQuery('#mg_cf_' + id + '_textarea').val();
     console.log ( txt );
     jQuery('.modal-body-cf_preview').html(txt);
     jQuery('#cf_preview_modal').modal('show');
   })
 
   //sort table rows for the custom fields admin edit screen
-  jQuery( "table tbody" ).sortable( {
+  jQuery( ".custom-fields-table" ).sortable( {
 	update: function( event, ui ) {
     jQuery('.alert-warning').css('display','');
     jQuery(this).children().each(function(index) {
