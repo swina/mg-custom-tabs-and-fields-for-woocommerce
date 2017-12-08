@@ -64,15 +64,14 @@ jQuery(document).ready(function(){
     var obj = jQuery(this);
     var id = obj.data('field');
     var txt = jQuery('#mg_cf_' + id + '_textarea').val();
-    console.log ( txt );
     jQuery('.modal-body-cf_preview').html(txt);
     jQuery('#cf_preview_modal').modal('show');
   })
 
   //sort table rows for the custom fields admin edit screen
-  jQuery( ".custom-fields-table" ).sortable( {
+  jQuery( ".custom-fields-table tbody" ).sortable( {
 	update: function( event, ui ) {
-    jQuery('.alert-warning').css('display','');
+    jQuery('.alert-warning').css('visibility','visible');
     jQuery(this).children().each(function(index) {
 			jQuery(this).find('td').last().attr('ordine',index + 1)
     });

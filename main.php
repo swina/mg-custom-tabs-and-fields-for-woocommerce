@@ -14,18 +14,20 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 /* required files */
+
 require_once dirname( __FILE__ ) . '/include/class.mg_custom-tab-fields-manager.php';
 require_once dirname( __FILE__ ) . '/admin/admin-meta-box.php';
 require_once dirname( __FILE__ ) . '/admin/admin-custom-fields.php';
-require_once dirname( __FILE__ ) . '/admin/welcome.php';
+require_once dirname( __FILE__ ) . '/admin/dashboard.php';
+
 
 /* custom fields callback */
-function mg_ctcf_custom_fields(){
-  mg_ctcf_custom_fields_manager();
+function mood_ctcf_custom_fields(){
+  mood_ctcf_custom_fields_manager();
 }
 
 /*load js, css and bootstrap modal*/
-function mg_ctcf_plugin_assets() {
+function mood_ctcf_plugin_assets() {
   wp_register_script ( 'modaljs' , plugin_dir_url( __FILE__ ) . 'assets/bootstrap/js/bootstrap.min.js', array( 'jquery' ), '1', true );
   wp_register_style ( 'modalcss' , plugin_dir_url( __FILE__ ) . 'assets/bootstrap/css/bootstrap.css', '' , '', 'all' );
   wp_register_script ( 'pluginjs' , plugin_dir_url( __FILE__ ) . 'assets/js/cfmb.js', array( 'jquery' ), '1', true );
@@ -36,11 +38,12 @@ function mg_ctcf_plugin_assets() {
   wp_enqueue_style( 'plugincss' );
   if ( !jQuery.ui ){
     wp_enqueue_script ( 'jquery-ui-sortable' );
+    wp_enqueue_script ( 'jquery-ui-tooltip' );
   }
 }
 
 //action load boostrap and plugin jss / css
-add_action('admin_enqueue_scripts', 'mg_ctcf_plugin_assets');
+add_action('admin_enqueue_scripts', 'mood_ctcf_plugin_assets');
 
 if ( !is_admin() ) {
   wp_register_style ( 'plugincssfrontend' , plugin_dir_url( __FILE__ ) . 'assets/css/cfmb.css', '' , '', 'all' );

@@ -4,7 +4,7 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 //showing custom meta box for tabs
-function mg_ctcf_show_custom_meta_box_mg_wc_tab() {
+function mood_ctcf_show_custom_meta_box_mg_wc_tab() {
   global $post;
   $settings = array(
     'quicktags' => array('buttons' => 'em,strong,link',),
@@ -45,7 +45,7 @@ function mg_ctcf_show_custom_meta_box_mg_wc_tab() {
 <?php
 }
 
-function mg_ctcf_show_custom_meta_box_mg_wc_tab_fields(){
+function mood_ctcf_show_custom_meta_box_mg_wc_tab_fields(){
   global $post;
   if ( isset($_POST['mg_wc_tab_custom_fields']) ){
     print_r(sanitize_text($_POST['mg_wc_tab_custom_fields']));
@@ -68,7 +68,7 @@ function mg_ctcf_show_custom_meta_box_mg_wc_tab_fields(){
   <?php
 }
 
-function mg_ctcf_show_product_meta_box_mg_wc_custom_fields(){
+function mood_ctcf_show_product_meta_box_mg_wc_custom_fields(){
   ?>
   <div class="product_custom_field">'
   <?php
@@ -91,37 +91,36 @@ function mg_ctcf_show_product_meta_box_mg_wc_custom_fields(){
 
     <?php
     if ( $options ){
+      foreach ( $options AS $key=>$value ){
+        if ( !$value['custom_tab'] ){
+          $field = $value['name'];
+          $content = '';
+          if ( $au_meta['mg_cf_'.$field] ){
+            $meta = $au_meta['mg_cf_'.$field];
+            $content = $meta[0];
+          }
 
-    foreach ( $options AS $key=>$value ){
-
-    if ( !$value['custom_tab'] ){
-      $field = $value['name'];
-      $content = '';
-      if ( $au_meta['mg_cf_'.$field] ){
-        $meta = $au_meta['mg_cf_'.$field];
-        $content = $meta[0];
+          if ( strlen($content) > 0 ){ ?>
+            <div class="custom_field_saved_<?php echo $value['name'];?>">
+              <h3><?php echo esc_attr($value['label']);?></h3>
+              <textarea style="width:100%;" id="mg_cf_<?php echo $value['name'];?>_textarea" name="mg_cf_<?php echo $value['name']?>"><?php echo esc_attr($content);?></textarea>
+              <span class="btn-editor btn-cf" data-field="mg_cf_<?php echo $value['name'];?>" data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><span class="dashicons dashicons-edit"></span> Editor</span>
+              <span class="btn-field-remove-saved btn-cf" data-field="<?php echo $value['name'];?>" style="cursor:pointer;">
+                <span class="dashicons dashicons-trash"></span>
+                Remove
+              </span>
+              <span class="btn-custom-field-preview btn-cf" data-field="<?php echo $value['name'];?>" style="cursor:pointer" data-toggle="modal" data-target="cf_preview_modal"><span class="dashicons dashicons-visibility"></span> Preview</span>
+            </div>
+          <?php
+          } else {
+            $a = array (
+              'name' => $value['name'],
+              'label' => $value['label']
+            );
+            array_push($aFieldsAdd,$a);
+          }
+        }
       }
-
-      if ( $content != '' ){ ?>
-        <div class="custom_field_saved_<?php echo $value['name'];?>">
-          <h3><?php echo esc_attr($value['label']);?></h3>
-          <textarea style="width:100%;" id="mg_cf_<?php echo $value['name'];?>_textarea" name="mg_cf_<?php echo $value['name']?>"><?php echo esc_attr($content);?></textarea>
-          <span class="btn-editor btn-cf" data-field="mg_cf_<?php echo $value['name'];?>" data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><span class="dashicons dashicons-edit"></span> Editor</span>
-          <span class="btn-field-remove-saved btn-cf" data-field="<?php echo $value['name'];?>" style="cursor:pointer;">
-          <span class="dashicons dashicons-trash"></span>
-          Remove</span>
-          <span class="btn-custom-field-preview btn-cf" data-field="<?php echo $value['name'];?>" style="cursor:pointer" data-toggle="modal" data-target="cf_preview_modal"><span class="dashicons dashicons-visibility"></span> Preview</span>
-        </div>
-      <?php
-      } else {
-        $a = array (
-          'name' => $value['name'],
-          'label' => $value['label']
-        );
-        array_push($aFieldsAdd,$a);
-      }
-    }
-    }
     }
     ?>
     </div>
@@ -146,6 +145,8 @@ function mg_ctcf_show_product_meta_box_mg_wc_custom_fields(){
   }
   ?>
   </div>
+
+
   <!-- Modal -->
   <div id="myModal" class="modal fade" tabindex="-1">
   <div class="modal-dialog">

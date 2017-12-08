@@ -18,6 +18,32 @@
 
 .cfmb_new_option, input.cfmb_new_option { font-size:1.3em!important; }
 
+.alert-warning {
+  background: #ffcaca;
+  padding: 10px;
+  border: 1px solid #f5a7a0;
+  visibility:hidden;
+}
+
+.tooltip {
+  display: unset;
+  position: absolute;
+  width: 30vw;
+  background: rgb(136, 136, 136);
+  padding: 5px;
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  top: 0px;
+  left:-40px!important;
+}
+
+.ui-tooltip {
+    padding: 5px 10px;
+    color: white;
+    border-radius: 50px;
+    font-size:.8em;
+    box-shadow: 0 0 7px black;
+  }
 
 .mg-ul {
   margin-left:10px;

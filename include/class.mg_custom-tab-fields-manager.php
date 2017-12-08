@@ -3,240 +3,79 @@
 /* Custom Tabs & Fields for Woocommerce by moodgiver */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if( !class_exists('mg_custom_tab_manager') ):
+if( !class_exists('mood_ctcf_custom_tab_manager') ):
 
-	class mg_custom_tab_manager {
+	//plugin master class
+	class mood_ctcf_custom_tab_manager {
 
 		public function __construct(){
-      add_action( 'init', array( $this, 'mg_ctcf_custom_tab_post_type' ), 0 );
-      add_action( 'init', array ( $this ,'mg_ctcf_add_product_cat_to_custom_tab_post_type') );
-      add_action('admin_menu', array ( $this , 'mg_ctcf_custom_tab_submenu') );
-      add_filter( 'post_row_actions', array( $this, 'mg_ctcf_remove_tabs_view_option' ), 10, 2 );
-      add_action( 'admin_head-post-new.php', array( $this, 'mg_ctcf_tab_head_extra' ) );
-			add_action( 'admin_head-post.php', array( $this, 'mg_ctcf_tab_head_extra' ) );
-      add_action( 'save_post', array( $this, 'mg_ctcf_tab_save_post' ) );
-			add_filter( 'manage_edit-mg_wc_tab_columns', array( $this, 'mg_tabs_edit_columns' ), 10 );
-      add_filter( 'manage_mg_wc_tab_posts_custom_column', array( $this, 'mg_wc_tabs_custom_columns' ), 2, 10 );
-			//add_filter( 'manage_edit-mg_ctcf_tab_columns', array( $this, 'mg_ctcf_tabs_edit_columns' ), 10 );
-      //add_filter( 'manage_mg_ctcf_tab_posts_custom_column', array( $this, 'mg_ctcf_tabs_custom_columns' ), 2, 10 );
-      //create metabox
-      add_action( 'add_meta_boxes', array ( $this , 'mg_ctcf_tab_add_meta_boxes') );
-      add_action( 'add_meta_boxes', array ( $this , 'mg_ctcf_custom_fields_add_meta_boxes') );
+			//actions & filters
+      add_action( 'init', array( $this, 'mood_ctcf_custom_tab_post_type' ), 0 );
+      add_action( 'init', array ( $this ,'mood_ctcf_add_product_cat_to_custom_tab_post_type') );
+      add_action('admin_menu', array ( $this , 'mood_ctcf_custom_tab_submenu') );
+      add_filter( 'post_row_actions', array( $this, 'mood_ctcf_remove_tabs_view_option' ), 10, 2 );
+      add_action( 'admin_head-post-new.php', array( $this, 'mood_ctcf_tab_head_extra' ) );
+			add_action( 'admin_head-post.php', array( $this, 'mood_ctcf_tab_head_extra' ) );
+      add_action( 'save_post', array( $this, 'mood_ctcf_tab_save_post' ) );
+			add_filter( 'manage_edit-mg_wc_tab_columns', array( $this, 'mood_tabs_edit_columns' ), 10 );
+      add_filter( 'manage_mg_wc_tab_posts_custom_column', array( $this, 'mood_wc_tabs_custom_columns' ), 2, 10 );
+      add_action( 'add_meta_boxes', array ( $this , 'mood_ctcf_tab_add_meta_boxes') );
+      add_action( 'add_meta_boxes', array ( $this , 'mood_ctcf_custom_fields_add_meta_boxes') );
 
-      add_action('woocommerce_process_product_meta', array ( $this,'mg_ctcf_custom_fields_save'),0);
-      add_filter( 'woocommerce_product_tabs', array($this, 'mg_ctcf_custom_tabs'), 98 );
-      add_action('woocommerce_product_meta_end' , array( $this ,'mg_ctcf_custom_fields_meta') , 60);
+      add_action('woocommerce_process_product_meta', array ( $this,'mood_ctcf_custom_fields_save'),0);
+      add_filter( 'woocommerce_product_tabs', array($this, 'mood_ctcf_custom_tabs'), 98 );
+			add_filter( 'woocommerce_product_tabs', array ($this,'mood_ctcf_custom_description_tab'), 99 );
+      add_action('woocommerce_product_meta_end' , array( $this ,'mood_ctcf_custom_fields_meta') , 60);
     }
 
 
-		/* add single page product custom fields to meta */
-    public function mg_ctcf_custom_fields_meta(){
-      global $post;
-      $options = get_option('mg_wc_cfmb');
-      $id = get_the_ID();
-      if ( $options ){
-      foreach ( $options AS $key=>$value ){
-        if ( !$value['custom_tab'] ){
-          if ( $value['meta'] == 1 ){
-            $label = $value['label'];
-            $meta = get_post_meta($post->ID,$key='mg_cf_'.$value['name']);
-            ?>
-            <div class="mg_cf_meta"><?php echo $label;?>: <span><?php echo htmlspecialchars_decode(esc_attr($meta[0]));?></span></div>
-            <?php
-          }
-        }
-      }
-      }
-    }
-
-    //extra head for tab edit page
-    public function mg_ctcf_tab_head_extra(){
-      global $post_type;
-      $post_types = array( 'mg_wc_tab' );
-      if( in_array( $post_type, $post_types ) )
-
-      echo '<script>jQuery(document).ready(function(){
-        jQuery("#post,#submitpost").prepend("<div class=\'misc-pub-section\'><span><a href=\'edit.php?post_type=mg_wc_tab\'>Back to Custom Tabs</a></span></div>");
-      jQuery("#post-body-content").append(\'<div>This is a header global text for the tab</div>\');});</script>
-        <style>#post-preview, #view-post-btn{display: none;}</style>';
-
-    }
-
-    //save post meta
-    public function mg_ctcf_tab_save_post( $post_id ) {
-		    $slug = 'mg_wc_tab';
+		/*-------------- ADMIN FUNCTIONS -----------------*/
+		/*
+		/*-------------------------------------------------*/
+		//Create Plugin admin menu
+    public function mood_ctcf_custom_tab_submenu(){
+      add_menu_page(
+        'Products Custom Tabs & Fields',
+        'Products Custom Tabs & Fields',
+        'manage_options',
+        'mg_wc_ctcf',
+        'mg_wc_ctcf_main',
+        'dashicons-welcome-widgets-menus' );
 
 
-		    if( get_post_type($post_id) !== 'mg_wc_tab' ){
-		    	return;
-		    }
+			//custom fields menu
+      add_submenu_page(
+        'mg_wc_ctcf',
+        'Custom Fields',
+        'Custom Fields',
+        'manage_options',
+        'menu-posts-mg_wc_custom_fields',
+        'mood_ctcf_custom_fields'
+      );
 
-		    if ( $_POST && $slug !== $_POST['post_type'] ) {
-		        return;
-		    }
+			//custom tab menu
+      add_submenu_page(
+        'mg_wc_ctcf',
+        'Custom Tabs',
+        'Custom Tabs',
+        'manage_options',
+        'edit.php?post_type=mg_wc_tab',
+        NULL
+      );
 
-		    if ( !current_user_can( 'edit_post', $post_id ) ) {
-		        return;
-		    }
-
-		    if ( isset( $_REQUEST['mg_wc_tab_order'] ) ) {
-		        update_post_meta( $post_id, 'mg_wc_tab_order', $_REQUEST['mg_wc_tab_order'] );
-		    }
-
-        # checkboxes are submitted if checked, absent if not
-		    if ( isset( $_REQUEST['mg_wc_tab_active'] ) ) {
-
-		        update_post_meta($post_id, 'mg_wc_tab_active', TRUE);
-
-		    }else {
-
-		        update_post_meta($post_id, 'mg_wc_tab_active', FALSE);
-
-		    }
-
-        if ( isset( $_REQUEST['mg_wc_tab_footer'] ) ) {
-
-		        update_post_meta( $post_id, 'mg_wc_tab_footer', $_REQUEST['mg_wc_tab_footer'] );
-
-		    }
-
-          $custom_fields = get_option('mg_wc_cfmb');
-					if ( $custom_fields ){
-          foreach ( $custom_fields AS $key=>$cf ){
-            if ( isset($_REQUEST['mg_wc_tab_custom_field_'.$cf['name']]))
-            update_post_meta( $post_id, 'mg_wc_tab_custom_field_' .$cf['name'], TRUE );
-          }
-					}
-
-		}
-
-    //save product custom fields (postmeta)
-    public function mg_ctcf_custom_fields_save($post_id){
-      //get attributes
-      $options = get_option('mg_wc_cfmb');
-      foreach ( $options AS $key=>$value ){
-          if ( isset($_POST['mg_cf_'.$value['name']]) )
-          {
-            $woocommerce_custom_product_textarea = sanitize_text_field($_POST['mg_cf_'.$value['name']]);
-            if (!empty($woocommerce_custom_product_textarea))
-            {
-              update_post_meta($post_id, 'mg_cf_'.$value['name'], esc_html($woocommerce_custom_product_textarea));
-            }
-            else
-            {
-              delete_post_meta($post_id,'mg_cf_'.$value['name']);
-            }
-          }
-
-      }
-    }
-
-		//get save tabs
-    public function mg_wc_get_tabs(){
-  			$args = array (
-  				'post_type'      	=>  'mg_wc_tab'  ,
-  				'post_status'    	=>  'publish',
-  				'posts_per_page' 	=>  -1,
-  				'meta_query' 		=> array(
-  					array(
-  						'key'     => 'mg_wc_tab_active',
-  						'value'   => '1',
-  					),
-  				)
-  			);
-  			$q_tabs = 	get_posts( $args );
-  			$tabs 	=	array();
-  			foreach ($q_tabs as $tab){
-  				$attr_tab = array();
-  				$attr_tab['title']                  	=   $tab->post_title;
-  				$attr_tab['priority']               	=   get_post_meta($tab->ID, 'mg_wc_tab_order', true);
-          $attr_tab['category']                 =   get_the_terms($tab->ID,'product_cat');
-  				$attr_tab['id']                     	=   $tab->ID;
-  				$tabs[$tab->post_title.'_'.$tab->ID] 	=   $attr_tab;
-  			}
-
-  			return $tabs;
-
-    }
-
-    //create product custom Tabs
-    public function mg_ctcf_custom_tabs($tabs){
-      global $post;
-      $found = $this->woocommerce_product_custom_tab_category($post->ID);
-      if ( $found ){
-        $mg_wc_tabs = $this->mg_wc_get_tabs();
-        foreach ( $mg_wc_tabs as $tab ){
-
-          $tabs[$tab["id"]] = array(
-            'title'		=>	__( $tab['title'], 'mg_wc_tab-woocommerce-tab-manager' ),
-            'priority' 	=>	$tab['priority'] + 10,
-            'callback' 	=>	array ( $this, 'mg_wc_custom_tab_the_content_tabs' )
-          );
-        }
-      }
-      return $tabs;
-    }
-
-		//search if a tab is assigned to the current product category
-    public function woocommerce_product_custom_tab_category($post_id){
-      $terms = get_the_terms($post_id,'product_cat');
-      $mg_wc_tabs = $this->mg_wc_get_tabs();
-      $found = false;
-      foreach ( $mg_wc_tabs AS $tab ){
-        $categories = $tab['category'];
-        foreach ( $categories AS $category ){
-          foreach ( $terms AS $k=>$cat ){
-            if ( $cat->slug == $category->slug ){
-              $found = true;
-              break;
-            }
-          }
-        }
-      }
-      return $found;
-    }
-
-		//get the content for the tab
-    public function mg_wc_custom_tab_the_content_tabs($id,$tab){
-      $content_post 	= get_post($id);
-      $footer     = get_post_meta($id,$key='mg_wc_tab_footer');
-			$content 		= $content_post->post_content;
-			$content 		= apply_filters('the_content', $content);
-			//$content 		= str_replace(']]>', ']]&gt;', $content);
-      $custom_fields = $this->mg_wc_custom_tab_get_custom_fields($id);
-      $copyright  = '<p><small>Custom Tab created with Custom Tabs&Fields for Woocomerce - &copy;-'.date('Y').'</small></p>';
-			echo $content.$custom_fields.$footer[0];//.$copyright;
-    }
-
-		//return custom fields meta data for the current product
-    public function mg_wc_custom_tab_get_custom_fields($id){
-      global $post;
-      $fields = get_option('mg_wc_cfmb');
-      ?>
-
-      <?php
-      $row = '<table class="shop_attributes">';
-			if ( $fields ){
-      foreach ( $fields AS $field ){
-
-        if ( get_post_meta($id,$key='mg_wc_tab_custom_field_'.$field['name'])){
-          $custom_field = get_post_meta(get_the_ID(),'mg_cf_'.$field['name']);
-          if ( strlen($custom_field[0]) > 0){
-          $row .= '
-          <tr>
-            <th>'.$field['label'].'</th>
-            <td>'.htmlspecialchars_decode($custom_field[0]).'</td>
-          </tr>';
-          }
-        }
-      }
-			}
-      return $row.'</table>';
-
+			//DB Optimize
+			add_submenu_page(
+				'mg_wc_ctcf',
+        'DB Optimize',
+        'DB Optimize',
+        'manage_options',
+        'menu-posts-mg_wc_db_optimize',
+        'mood_ctcf_db_optimize'
+			);
     }
 
 		//create tab post type
-    public function mg_ctcf_custom_tab_post_type(){
+    public function mood_ctcf_custom_tab_post_type(){
     			$labels = array(
   				'name'                  => _x( 'Custom Tabs for Woocommerce', 'Post Type General Name', 'mg_custom_tab_manager' ),
   				'singular_name'         => _x( 'Tab', 'Post Type Singular Name', 'mg_custom_tab_manager' ),
@@ -282,16 +121,101 @@ if( !class_exists('mg_custom_tab_manager') ):
   			register_post_type( 'mg_wc_tab', $args );
     }
 
+    //extra head for tab edit page
+    public function mood_ctcf_tab_head_extra(){
+      global $post_type;
+      $post_types = array( 'mg_wc_tab' );
+      if( in_array( $post_type, $post_types ) )
+
+      echo '<script>jQuery(document).ready(function(){
+        jQuery("#post,#submitpost").prepend("<div class=\'misc-pub-section\'><span><a href=\'edit.php?post_type=mg_wc_tab\'>Back to Custom Tabs</a></span></div>");
+      jQuery("#post-body-content").append(\'<div>This is a header global text for the tab</div>\');});</script>
+        <style>#post-preview, #view-post-btn{display: none;}</style>';
+
+    }
+
+    //save post meta
+    public function mood_ctcf_tab_save_post( $post_id ) {
+		    $slug = 'mg_wc_tab';
+		    if( get_post_type($post_id) !== 'mg_wc_tab' ){
+		    	return;
+		    }
+
+		    if ( $_POST && $slug !== $_POST['post_type'] ) {
+		        return;
+		    }
+
+		    if ( !current_user_can( 'edit_post', $post_id ) ) {
+		        return;
+		    }
+
+		    if ( isset( $_REQUEST['mg_wc_tab_order'] ) ) {
+		        update_post_meta( $post_id, 'mg_wc_tab_order', $_REQUEST['mg_wc_tab_order'] );
+		    }
+
+        # checkboxes are submitted if checked, absent if not
+		    if ( isset( $_REQUEST['mg_wc_tab_active'] ) ) {
+		        update_post_meta($post_id, 'mg_wc_tab_active', TRUE);
+		    }else {
+		        update_post_meta($post_id, 'mg_wc_tab_active', FALSE);
+		    }
+
+        if ( isset( $_REQUEST['mg_wc_tab_footer'] ) ) {
+		        update_post_meta( $post_id, 'mg_wc_tab_footer', $_REQUEST['mg_wc_tab_footer'] );
+		    }
+
+          $custom_fields = get_option('mg_wc_cfmb');
+					if ( $custom_fields ){
+          foreach ( $custom_fields AS $key=>$cf ){
+            if ( isset($_REQUEST['mg_wc_tab_custom_field_'.$cf['name']])) {
+            	update_post_meta( $post_id, 'mg_wc_tab_custom_field_' .$cf['name'], TRUE );
+						} else {
+							delete_post_meta( $post_id, 'mg_wc_tab_custom_field_' .$cf['name'] );
+						}
+          }
+					}
+
+		}
+
+		//get saved tabs
+    public function mood_ctcf_get_tabs(){
+  			$args = array (
+  				'post_type'      	=>  'mg_wc_tab'  ,
+  				'post_status'    	=>  'publish',
+  				'posts_per_page' 	=>  -1,
+  				'meta_query' 		=> array(
+  					array(
+  						'key'     => 'mg_wc_tab_active',
+  						'value'   => '1',
+  					),
+  				)
+  			);
+  			$q_tabs = 	get_posts( $args );
+  			$tabs 	=	array();
+  			foreach ($q_tabs as $tab){
+  				$attr_tab = array();
+  				$attr_tab['title']                  	=   $tab->post_title;
+  				$attr_tab['priority']               	=   get_post_meta($tab->ID, 'mg_wc_tab_order', true);
+          $attr_tab['category']                 =   get_the_terms($tab->ID,'product_cat');
+  				$attr_tab['id']                     	=   $tab->ID;
+  				$tabs[$tab->post_title.'_'.$tab->ID] 	=   $attr_tab;
+  			}
+
+  			return $tabs;
+
+    }
+
     //remove view option from the admin screen tab edit
-    public	function mg_ctcf_remove_tabs_view_option( $actions, $post ){
+    public	function mood_ctcf_remove_tabs_view_option( $actions, $post ){
       if( $post->post_type == 'mg_wc_tab' ){
   		  unset( $actions['view'] );
+				unset( $actions['inline hide-if-no-js']);
   		}
   		return $actions;
     }
 
     //columns for tabs list page
-    public function mg_tabs_edit_columns($columns){
+    public function mood_tabs_edit_columns($columns){
       $columns = array(
 				'cb' 			=> '<input type="checkbox" />',
 				'title' 		=> __( 'Custom Tab Name', 'mg-custom-tabs-manager' ),
@@ -304,7 +228,7 @@ if( !class_exists('mg_custom_tab_manager') ):
     }
 
 		//create custom columns for the admin screen tab page
-    public function mg_wc_tabs_custom_columns ( $column, $post_id ) {
+    public function mood_wc_tabs_custom_columns ( $column, $post_id ) {
 			global $post;
       $custom_fields = get_option('mg_wc_cfmb');
 			if ( $custom_fields ){
@@ -343,11 +267,11 @@ if( !class_exists('mg_custom_tab_manager') ):
 		//add settings metabox for the custom tab admin edit page
 		//@order > define the tab position
 		//@active > tab is active (display enabled)
-    public function mg_ctcf_tab_add_meta_boxes(){
+    public function mood_ctcf_tab_add_meta_boxes(){
       add_meta_box(
        'custom_meta_box-mg_wc_tab',       // $id
        'Settings',                        // $title
-       'mg_ctcf_show_custom_meta_box_mg_wc_tab',  // $callback
+       'mood_ctcf_show_custom_meta_box_mg_wc_tab',  // $callback
        'mg_wc_tab',                       // $page
        'normal',                          // $context
        'high'                             // $priority
@@ -356,7 +280,7 @@ if( !class_exists('mg_custom_tab_manager') ):
       add_meta_box(
        'custom_meta_box-mg_wc_tab_fields',       // $id
        'Tab Custom Fields to include',                        // $title
-       'mg_ctcf_show_custom_meta_box_mg_wc_tab_fields',  // $callback
+       'mood_ctcf_show_custom_meta_box_mg_wc_tab_fields',  // $callback
        'mg_wc_tab',                       // $page
        'side',                            // $context
        'default'                             // $priority
@@ -365,11 +289,11 @@ if( !class_exists('mg_custom_tab_manager') ):
     }
 
 		//add custom fields metabox assignable to the current tab (admin edit screen)
-    function mg_ctcf_custom_fields_add_meta_boxes(){
+    function mood_ctcf_custom_fields_add_meta_boxes(){
       add_meta_box(
        'custom_meta_box-mg_wc_custom_fields',       // $id
        'Custom Fields',                             // $title
-       'mg_ctcf_show_product_meta_box_mg_wc_custom_fields',  // $callback
+       'mood_ctcf_show_product_meta_box_mg_wc_custom_fields',  // $callback
        'product',                         // $page
        'normal',                          // $context
        'default'                             // $priority
@@ -377,52 +301,191 @@ if( !class_exists('mg_custom_tab_manager') ):
     }
 
     //add category metabox to tabs editor
-    public function mg_ctcf_add_product_cat_to_custom_tab_post_type() {
+    public function mood_ctcf_add_product_cat_to_custom_tab_post_type() {
         register_taxonomy_for_object_type( 'product_cat', 'mg_wc_tab' );
     }
 
-    //Create Plugin admin menu
-    public function mg_ctcf_custom_tab_submenu(){
-			//Main menu
-      add_menu_page(
-        'Products Custom Tabs & Fields',
-        'Products Custom Tabs & Fields',
-        'manage_options',
-        'mg_wc_ctcf',
-        'mg_wc_ctcf_main',
-        'dashicons-welcome-widgets-menus' );
+		//save product custom fields (postmeta)
+    public function mood_ctcf_custom_fields_save($post_id){
+      //get attributes
+      $options = get_option('mg_wc_cfmb');
+      foreach ( $options AS $key=>$value ){
+          if ( isset($_POST['mg_cf_'.$value['name']]) )
+          {
+            $woocommerce_custom_product_textarea = sanitize_text_field($_POST['mg_cf_'.$value['name']]);
+            if (!empty($woocommerce_custom_product_textarea))
+            {
+              update_post_meta($post_id, 'mg_cf_'.$value['name'], esc_html($woocommerce_custom_product_textarea));
+            }
+            else
+            {
+              delete_post_meta($post_id,'mg_cf_'.$value['name']);
+            }
+          }
 
-			//custom tab menu
-      add_submenu_page(
-        'mg_wc_ctcf',
-        'Custom Tabs',
-        'Custom Tabs',
-        'manage_options',
-        'edit.php?post_type=mg_wc_tab',
-        NULL
-      );
-
-			//custom fields menu
-      add_submenu_page(
-        'mg_wc_ctcf',
-        'Custom Fields',
-        'Custom Fields',
-        'manage_options',
-        'menu-posts-mg_wc_custom_fields',
-        'mg_ctcf_custom_fields'
-      );
-
-			//DB Optimize
-			add_submenu_page(
-				'mg_wc_ctcf',
-        'DB Optimize',
-        'DB Optimize',
-        'manage_options',
-        'menu-posts-mg_wc_db_optimize',
-        'mg_db_optimize'
-			);
+      }
     }
+
+
+		/* ---------------- FRONT END -----------------------
+		/*
+		/*----------------------------------------------------
+
+		/* append single page product meta custom fields    */
+    public function mood_ctcf_custom_fields_meta(){
+      global $post;
+			//get custom fields
+      $options = get_option('mg_wc_cfmb');
+      $id = get_the_ID();
+
+			//check if there are custom fields defined
+			if ( $options ){
+
+				//loop thru each custom field
+				foreach ( $options AS $key=>$value ){
+
+					//check if product meta tag is active
+          if ( $value['meta'] == 1 ){
+
+						//append custom field label & value to product meta
+          	$label = $value['label'];
+            $meta = get_post_meta($post->ID,$key='mg_cf_'.$value['name']);
+            ?>
+            <div class="mg_cf_meta"><?php echo esc_attr($label);?>: <span><?php echo htmlspecialchars_decode(esc_attr($meta[0]));?></span></div>
+
+				  <?php
+          }
+
+				}
+
+			}
+
+		}
+		/*.mood_ctcf_custom_fields_meta */
+
+    //create product custom Tabs
+    public function mood_ctcf_custom_tabs($tabs){
+      global $post;
+			$found = $this->woocommerce_product_custom_tab_category($post->ID);
+      if ( $found ){
+        $mg_wc_tabs = $this->mood_ctcf_get_tabs();
+        foreach ( $mg_wc_tabs as $tab ){
+
+          $tabs[$tab["id"]] = array(
+            'title'		=>	__( $tab['title'], 'mg_wc_tab-woocommerce-tab-manager' ),
+            'priority' 	=>	$tab['priority'] + 10,
+            'callback' 	=>	array ( $this, 'mood_wc_custom_tab_the_content_tabs' )
+          );
+        }
+      }
+			return $tabs;
+    }
+		/*.mood_ctcf_custom_tabs*/
+
+		//recreate description tab
+		public function mood_ctcf_custom_description_tab($tabs){
+			if ( $tabs['description'] ){
+				$tabs['description']['callback'] = array ( $this ,'mood_ctcf_custom_description_tab_content');
+			}
+    	return $tabs;
+		}
+		/*.mood_ctcf_custom_description_tab*/
+
+		//recreate description tab content
+		public function mood_ctcf_custom_description_tab_content(){
+			global $post;
+			$content 	= $post->post_content;
+			$content 	= apply_filters('the_content', $content);
+			$custom_fields = $this->mood_ctcf_custom_tab_get_custom_fields_for_description();
+			echo $content.$custom_fields;
+		}
+		/*.mood_ctcf_custom_description_tab_content*/
+
+		//display custom fields assigned to description tab
+		public function mood_ctcf_custom_tab_get_custom_fields_for_description(){
+			$fields = get_option('mg_wc_cfmb');
+			$description_fields = [];
+			$row = '';
+			if ( $fields ){
+				$row = '<table class="shop_attributes">';
+				foreach ( $fields AS $field ){
+					if ( $field['tab_description'] ){
+
+							$custom_field = get_post_meta(get_the_ID(),'mg_cf_'.$field['name']);
+							if ( strlen($custom_field[0]) > 0){
+								$row .= '
+									<tr>
+									<th>'.$field['label'].'</th>
+									<td>'.htmlspecialchars_decode($custom_field[0]).'</td>
+								</tr>';
+							}
+					}
+				}
+				return $row .='</table>';
+			}
+			return $row;
+		}
+		/*.mood_ctcf_custom_tab_get_custom_fields_for_description*/
+
+		//search if a tab is assigned to the current product category
+    public function woocommerce_product_custom_tab_category($post_id){
+      $terms = get_the_terms($post_id,'product_cat');
+      $mg_wc_tabs = $this->mood_ctcf_get_tabs();
+      $found = false;
+      foreach ( $mg_wc_tabs AS $tab ){
+        $categories = $tab['category'];
+        foreach ( $categories AS $category ){
+          foreach ( $terms AS $k=>$cat ){
+            if ( $cat->slug == $category->slug ){
+              $found = true;
+              break;
+            }
+          }
+        }
+      }
+
+      return $found;
+    }
+
+		//get the content for the tab
+    public function mood_wc_custom_tab_the_content_tabs($id,$tab){
+      $content_post 	= get_post($id);
+      $footer     = get_post_meta($id,$key='mg_wc_tab_footer');
+			$content 		= $content_post->post_content;
+			$content 		= apply_filters('the_content', $content);
+			//$content 		= str_replace(']]>', ']]&gt;', $content);
+      $custom_fields = $this->mood_wc_custom_tab_get_custom_fields($id);
+      $copyright  = '<p><small>Custom Tab created with Custom Tabs&Fields for Woocomerce - &copy;-'.date('Y').'</small></p>';
+			echo $content.$custom_fields.$footer[0];//.$copyright;
+    }
+
+		//return custom fields meta data for the current product
+    public function mood_wc_custom_tab_get_custom_fields($id){
+      global $post;
+      $fields = get_option('mg_wc_cfmb');
+      ?>
+
+      <?php
+      $row = '<table class="shop_attributes">';
+			if ( $fields ){
+      	foreach ( $fields AS $field ){
+        	if ( get_post_meta($id,$key='mg_wc_tab_custom_field_'.$field['name'])){
+          	$custom_field = get_post_meta(get_the_ID(),'mg_cf_'.$field['name']);
+          	if ( strlen($custom_field[0]) > 0){
+          		$row .= '
+          			<tr>
+            		<th>'.$field['label'].'</th>
+            		<td>'.htmlspecialchars_decode($custom_field[0]).'</td>
+          		</tr>';
+          	}
+        	}
+      	}
+			}
+      return $row.'</table>';
+
+    }
+
   }
 
 endif;
-new mg_custom_tab_manager();
+new mood_ctcf_custom_tab_manager();

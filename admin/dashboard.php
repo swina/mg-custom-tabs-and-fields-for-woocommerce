@@ -11,23 +11,34 @@ function mg_wc_ctcf_main(){
     <img src="<?php echo plugin_dir_url( __FILE__ );?>mg-custom-tabs-fields-for-woocommerce-banner.jpg"/>
   </div>
   <div class="mg-container">
-  <div class="mg-col-3">
-    <h3><?php echo __('Custom Tabs','mg-tabs-and-fields-for-woocommcerce');?></h3>
-    <div class="content"><p><?php echo __( 'Add custom tabs to your shop products. Filter custom tabs to display on product categories.','mg-tabs-and-fields-for-woocommcerce');?></p>
-    </div>
-    <a href="edit.php?post_type=mg_wc_tab"><button class="button button-primary"><?php echo __( 'Create a Custom Tab' , 'mg-tabs-and-fields-for-woocommcerce');?></button></a>
-  </div>
+
   <div class="mg-col-3">
     <h3><?php echo __('Custom Fields','mg-tabs-and-fields-for-woocommcerce');?></h3>
     <div class="content"><p><?php echo __('Add rich text custom fields to your shop products. Filter custom fields to display on product categories.','mg-tabs-and-fields-for-woocommcerce');?></p>
     </div>
     <a href="admin.php?page=menu-posts-mg_wc_custom_fields"><button class="button button-primary"><?php echo __('Create a Custom Field','mg-tabs-and-fields-for-woocommcerce');?></button></a>
   </div>
+
+  <div class="mg-col-3">
+    <h3><?php echo __('Custom Tabs','mg-tabs-and-fields-for-woocommcerce');?></h3>
+    <div class="content"><p><?php echo __( 'Add custom tabs to your shop products. Filter custom tabs to display on product categories.','mg-tabs-and-fields-for-woocommcerce');?></p>
+    </div>
+    <a href="edit.php?post_type=mg_wc_tab"><button class="button button-primary"><?php echo __( 'Create a Custom Tab' , 'mg-tabs-and-fields-for-woocommcerce');?></button></a>
+  </div>
+  
   <div class="mg-col-3">
     <h3>DB Optimize</h3>
     <div class="content"><p>Optimize your DB cleaning all unnecessary data.</p>
     </div>
       <a href="admin.php?page=menu-posts-mg_wc_db_optimize"><button class="button button-primary">Optimize DB</button></a>
+  </div>
+
+  <div class="mg-col-3">
+    <h3>Documentation</h3>
+    <div class="content">
+      <p>Check our documentation in order to start using this plugin</p>
+    </div>
+    <a href=" https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce" target="_blank"><button class="button button-primary">Read Docs</button></a>
   </div>
 
   <div class="mg-col-3">

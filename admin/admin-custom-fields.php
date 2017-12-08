@@ -4,64 +4,79 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
-
-function mg_ctcf_custom_fields_manager(){
+//custom fields manager
+function mood_ctcf_custom_fields_manager(){
   if ( isset($_POST['mg_ctcf_save']) ){
-    $values = mg_ctcf_custom_fields_save();
+    $values = mood_ctcf_custom_fields_save();
   } else {
     $values = get_option('mg_wc_cfmb');
   }
 
   ?>
-<h1>Custom Fields for Woocommerce</h1>
-<form method="POST" id="cfmb_form">
-<table class="wp-list-table widefat fixed striped tags ui-sortable custom-fields-table">
-  <tr>
-    <td colspan="6">
-      <div class="aler alert-warning" style="width:100%;background:#ffc377;padding:10px;border:2px solid #db7e0a;display:none">You settings are changed. Save your changes</div>
-    </td>
-  </tr>
-  <tr>
-    <th colspan="6">
-      <h3>Custom Fields</h3>
-    </th>
-  </tr>
-  <tr class="table-options-row">
-    <th>Field Label</th>
-    <th>Slug</th>
-    <th>Enabled</th>
 
-    <th>Product Page Meta</th>
-    <th></th>
-    <th></th>
+<form method="POST" id="cfmb_form">
+<input type="hidden" name="mg_ctcf_save" value="1">
+<div class="wrap">
+  <h1 class="wp-heading-inline">Custom Fields for Woocommerce</h1>
+  <div class="alert alert-warning">You settings are changed. Save your changes</div>
+</div>
+<table class="wp-list-table widefat fixed striped posts ui-sortable custom-fields-table">
+  <thead>
+  <tr>
+  <tr class="table-options-row">
+    <td title="Assign a name to tde custom field like Information,Technical specs., etc">Field Label</td>
+    <!--<td>Slug</td>-->
+    <td title="Enable output of tde custom field" style="text-align:center">Enabled</td>
+    <td title="Add to the default description tab">Description Tab</td>
+    <td title="Custom Tab">Custom Tab</td>
+    <td title="Display after product meta data">Product Page Meta</td>
+    <td>&nbsp;</td>
   </tr>
-  <tbody class="ui-sortable field_rows">
-  <input type="hidden" name="mg_ctcf_save" value="1">
+</thead>
+  <tbody class="field_rows">
+
 
 <?php
     if ( $values ){
+      $tabs = get_posts(
+        array(
+            'post_type' => 'mg_wc_tab',
+            'posts_per_page' => -1,
+        )
+        );
+
     foreach ( $values AS $key=>$v ){
       if ( isset($v['name']) ){
+          $custom_tab = '';
+          foreach ( $tabs AS $tab ){
+            $tab_fields = get_post_meta($tab->ID,'mg_wc_tab_custom_field_'.$v['name']);
+            if ( $tab_fields ){
+              $custom_tab = $tab->post_title;
+            }
+          }
         ?>
+
         <tr id="row_<?php echo $v['name'];?>" class="field_row">
           <td>
             <input type="hidden" name="name_<?php echo $v['name'];?>" value="<?php echo $v['name'];?>">
             <input type="text" name="label_<?php echo $v['name'];?>" value="<?php echo $v['label'];?>">
           </td>
-          <td>
-            <?php echo $v['name'];?>
+
+          <td align="center">
+            <input type="checkbox" name="active_<?php echo $v['name']?>"  <?php echo esc_attr( $v['active'] ) == '1' ? 'checked="checked"' : ''; ?>>
           </td>
           <td>
-            <input type="checkbox" name="active_<?php echo $v['name']?>"  <?php echo esc_attr( $v['active'] ) == '1' ? 'checked="checked"' : ''; ?>>
+            <input type="checkbox" name="tab_description_<?php echo $v['name']?>"  <?php echo esc_attr( $v['tab_description'] ) == '1' ? 'checked="checked"' : ''; ?>>
+          </td>
+
+          <td>
+            <?php echo $custom_tab;?>
           </td>
 
           <td>
             <input type="checkbox" name="meta_<?php echo $v['name']?>"  <?php echo esc_attr( $v['meta'] ) == '1' ? 'checked="checked"' : ''; ?>>
           </td>
-          <td>
-            <a href="#" class="btn_delete" data-field="<?php echo $v['name'];?>"><span class="dashicons dashicons-trash"></span></a>
-          </td>
-          <td><span class="dashicons dashicons-menu"></span></td>
+          <td><a href="#" class="btn_delete" data-field="<?php echo $v['name'];?>"><span class="dashicons dashicons-trash"></span></a>&nbsp;<span class="dashicons dashicons-menu"></span></td>
         </tr>
       <?php
       }
@@ -82,26 +97,10 @@ function mg_ctcf_custom_fields_manager(){
         <span class="button button-default btn-show" data-target="cfmb_new_option">Add a new field</span> <button class="button button-primary">Save changes</button>
       </td>
     </tr>
-    <tr class="hide">
-      <td colspan="6">
-        <h3>Custom Fields Position</h3>
-      </td>
-    </tr>
 
-    <tr class="hide">
-      <td colspan="6" class="left">
-        <strong>Tab name</strong>
-        <input type="text" placeholder="description" name="custom_tab_name" value="<?php echo esc_attr($custom_tab['tab_name']); ?>" size="50" /> <small>Assign a new name to the description tab or to the new tab</small>
-      </td>
-    </tr>
-    <tr class="hide">
-      <td colspan="6" class="left">
-        <input type="checkbox" name="custom_tab_description" <?php echo  esc_attr($custom_tab['active']) == '1' ? 'checked="checked"' : '';?>> <strong>Add to description tab</strong>
-      </td>
-    </tr>
     <tr>
       <td colspan="6">
-        <div class="aler alert-warning" style="width:100%;background:#ffc377;padding:10px;border:2px solid #db7e0a;display:none">Your settings are changed. Save your changes</div>
+        <div class="aler alert-warning">Your settings are changed. Save your changes</div>
       </td>
     </tr>
 </table>
@@ -110,7 +109,8 @@ function mg_ctcf_custom_fields_manager(){
 <?php
 }
 
-function mg_ctcf_custom_fields_save(){
+//save custom fields to option mg_wc_cfmb
+function mood_ctcf_custom_fields_save(){
   $value = get_option('mg_wc_cfmb');
   $options = [];
   if ( is_array($_POST) ){
@@ -121,6 +121,7 @@ function mg_ctcf_custom_fields_save(){
           'name'    => $name,
           'label'   => sanitize_text_field($_POST['label_'.$name]),
           'active'  => sanitize_text_field($_POST['active_'.$name]) == 'on' ? '1':'0',
+          'tab_description' => sanitize_text_field($_POST['tab_description_'.$name]) == 'on' ? '1':'0',
           'meta'    => sanitize_text_field($_POST['meta_'.$name]) == 'on' ? '1' : '0',
           'tab'     => sanitize_text_field($_POST['tab_'.$name])
         );
@@ -146,7 +147,9 @@ function mg_ctcf_custom_fields_save(){
   return $options;
 }
 
-function mg_db_optimize(){
+
+//optimize db
+function mood_ctcf_db_optimize(){
   global $wpdb;
   $optimized = false;
   if ( isset($_POST['mg_wc_cfmb_optimize']) && int($_POST['mg_wc_cfmb_optimize']) == 1 ){
