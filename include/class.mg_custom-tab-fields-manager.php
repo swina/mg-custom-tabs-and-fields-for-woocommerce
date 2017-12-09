@@ -35,8 +35,8 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 		//Create Plugin admin menu
     public function mood_ctcf_custom_tab_submenu(){
       add_menu_page(
-        'Products Custom Tabs & Fields',
-        'Products Custom Tabs & Fields',
+        'Dashboard',
+        'Moodgiver Custom Tabs & Fields',
         'manage_options',
         'mg_wc_ctcf',
         'mg_wc_ctcf_main',
@@ -72,6 +72,8 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
         'menu-posts-mg_wc_db_optimize',
         'mood_ctcf_db_optimize'
 			);
+
+
     }
 
 		//create tab post type
@@ -404,24 +406,37 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 		//display custom fields assigned to description tab
 		public function mood_ctcf_custom_tab_get_custom_fields_for_description(){
 			$fields = get_option('mg_wc_cfmb');
+			$settings = get_option('mood_ctcf_settings');
+			$layout = $settings['customfields_layout'];
 			$description_fields = [];
 			$row = '';
 			if ( $fields ){
 				$row = '<table class="shop_attributes">';
+				$endrow = '</table>';
+				if ( $layout != 'table' ){
+					$row = '<div class="mood_custom_fields_wrap">';
+					$endrow = '</div>';
+				}
 				foreach ( $fields AS $field ){
 					if ( $field['tab_description'] ){
 
 							$custom_field = get_post_meta(get_the_ID(),'mg_cf_'.$field['name']);
 							if ( strlen($custom_field[0]) > 0){
-								$row .= '
-									<tr>
-									<th>'.$field['label'].'</th>
-									<td>'.htmlspecialchars_decode($custom_field[0]).'</td>
-								</tr>';
+								if ( $layout == 'table' ){
+									$row .= '
+										<tr>
+										<th>'.$field['label'].'</th>
+										<td>'.htmlspecialchars_decode($custom_field[0]).'</td>
+									</tr>';
+								} else {
+									$row .= '<div><h2 class="mood_custom_field_label">'.$field['label'].'</h2>';
+									$row .= '<p>'.htmlspecialchars_decode($custom_field[0]).'</p></div>';
+								}
+
 							}
 					}
 				}
-				return $row .='</table>';
+				return $row . $endrow;
 			}
 			return $row;
 		}
@@ -463,25 +478,38 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
     public function mood_wc_custom_tab_get_custom_fields($id){
       global $post;
       $fields = get_option('mg_wc_cfmb');
+			$settings = get_option('mood_ctcf_settings');
+			$layout = $settings['customfields_layout'];
       ?>
 
       <?php
-      $row = '<table class="shop_attributes">';
+			$row = '<table class="shop_attributes">';
+			$endrow = '</table>';
+			if ( $layout != 'table' ){
+				$row = '<div class="mood_custom_fields_wrap">';
+				$endrow = '</div>';
+			}
 			if ( $fields ){
       	foreach ( $fields AS $field ){
         	if ( get_post_meta($id,$key='mg_wc_tab_custom_field_'.$field['name'])){
           	$custom_field = get_post_meta(get_the_ID(),'mg_cf_'.$field['name']);
           	if ( strlen($custom_field[0]) > 0){
-          		$row .= '
-          			<tr>
-            		<th>'.$field['label'].'</th>
-            		<td>'.htmlspecialchars_decode($custom_field[0]).'</td>
-          		</tr>';
+							if ( $layout == 'table' ){
+								$row .= '
+									<tr>
+									<th>'.$field['label'].'</th>
+									<td>'.htmlspecialchars_decode($custom_field[0]).'</td>
+								</tr>';
+							} else {
+								$row .= '<div><h2 class="mood_custom_field_label">'.$field['label'].'</h2>';
+								$row .= '<p>'.htmlspecialchars_decode($custom_field[0]).'</p></div>';
+							}
+
           	}
         	}
       	}
 			}
-      return $row.'</table>';
+      return $row . $endrow;
 
     }
 

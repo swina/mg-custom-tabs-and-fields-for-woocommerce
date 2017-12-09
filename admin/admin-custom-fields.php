@@ -4,6 +4,22 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
+//custom fields output Settings
+function mood_ctcf_settings(){
+  $options = get_option('mood_ctcf_settings');
+  if ( !$options ){
+    $customfield_layout = 'table';
+  } else {
+    $customfield_layout = $options['customfields_layout'];
+  }
+  ?>
+  <h3>Custom Fields Layout settings</h3>
+  <input type="radio" name="mood_ctcf_settings_layout" value="table" <?php echo esc_attr($customfield_layout) == 'table' ? 'checked="checked"' : '';?>> Table
+  <input type="radio" name="mood_ctcf_settings_layout" value="paragraph" <?php echo esc_attr($customfield_layout) == 'paragraph' ? 'checked="checked"' : '';?>> Paragraph
+  <p><small>This option sets the layout output of the custom fields in the product page</small></p>
+  <?php
+}
+
 //custom fields manager
 function mood_ctcf_custom_fields_manager(){
   if ( isset($_POST['mg_ctcf_save']) ){
@@ -18,10 +34,16 @@ function mood_ctcf_custom_fields_manager(){
 <input type="hidden" name="mg_ctcf_save" value="1">
 <div class="wrap">
   <h1 class="wp-heading-inline">Custom Fields for Woocommerce</h1>
+
   <div class="alert alert-warning">You settings are changed. Save your changes</div>
+
 </div>
 <table class="wp-list-table widefat fixed striped posts ui-sortable custom-fields-table">
   <thead>
+    <tr>
+      <td colspan="6">
+        <h3>Custom Fields</h3>
+      </td>
   <tr>
   <tr class="table-options-row">
     <td title="Assign a name to tde custom field like Information,Technical specs., etc">Field Label</td>
@@ -100,6 +122,22 @@ function mood_ctcf_custom_fields_manager(){
 
     <tr>
       <td colspan="6">
+        <?php
+          //custom fields layout setting
+          mood_ctcf_settings();
+        ?>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td colspan="6">
+        <button class="button button-primary">Save changes</button>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="6">
         <div class="aler alert-warning">Your settings are changed. Save your changes</div>
       </td>
     </tr>
@@ -143,7 +181,14 @@ function mood_ctcf_custom_fields_save(){
       update_option('mg_wc_cfmb', $options);
       $value = $options;
     }
+    if ( isset($_POST['mood_ctcf_settings_layout'])){
+      $a = array (
+        'customfields_layout' => sanitize_text_field($_POST['mood_ctcf_settings_layout']),
+      );
+      update_option('mood_ctcf_settings',$a);
+    }
   }
+
   return $options;
 }
 
