@@ -1,5 +1,5 @@
 # Custom Tabs & Fields for Woocommerce
-Custom Tabs & Fields for Woocommerce is a Wordpress plugin to add custom tabs and custom rich-text fields to Woocommerce products.
+Custom Tabs & Fields for Woocommerce is a Wordpress plugin to add custom tabs and custom meta-data to Woocommerce products.
 
 ![Alt text](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/blob/master/assets/banner-772x250.jpg)
 ## Features
@@ -47,7 +47,7 @@ Define your custom fields order dragging the custom fields rows to meet your nee
 ## Import and Optimize DB
 
 You can import your custom fields using the Woocommerce Import feature. 
-Your CSV File only needs a column name heading for each custom field in the following format: <code>Meta: \_cf\_[custom_field_slug]</code> In the columns mapping select Import as meta
+Your CSV File only needs a column name heading for each custom field in the following format: <code>Meta: \mg_cf\_[custom_field_slug]</code> In the columns mapping select Import as meta
 
 After importing data you should run the Optimize DB feature in order to clean all records with empty data.
 
