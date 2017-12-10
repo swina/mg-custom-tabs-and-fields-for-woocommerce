@@ -14,6 +14,9 @@ Custom Tabs & Fields for Woocommerce is a Wordpress plugin to add custom tabs an
 - Easy import custom fields from external source using Woocommerce import features (see below for more explanation)
 - Optimize DB option for better performance
 
+## Documentation
+Check our online ![documentation](https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/wiki) 
+
 ## How it works?
 
 With Custom Tabs & Fields for Woocommerce you can improve information about your shop products.
