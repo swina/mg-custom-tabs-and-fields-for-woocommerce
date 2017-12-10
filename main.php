@@ -8,6 +8,7 @@
 * Author URI: https://antonionardone.com
 * License: GPL3
 * Date: december 2017
+* Text-domain: mood_ctcf
 */
 
 // Exit if accessed directly
@@ -31,6 +32,11 @@ if ( is_admin() ){
 function mood_ctcf_custom_fields(){
   mood_ctcf_custom_fields_manager();
 }
+
+function moodgiver_ctcf_load_plugin_textdomain() {
+  load_plugin_textdomain( 'mood_ctcf', FALSE, basename( dirname( __FILE__ ) ) );
+}
+add_action( 'plugins_loaded', 'moodgiver_ctcf_load_plugin_textdomain' );
 
 /*load js, css and bootstrap modal*/
 function mood_ctcf_plugin_assets() {

@@ -1,0 +1,393 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Moodgiver Custom Tabs & Fields for Woocommerce\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-10 19:00+0000\n"
+"PO-Revision-Date: 2017-12-10 19:03+0000\n"
+"Last-Translator: swina.allen@gmail.com <swina.allen@gmail.com>\n"
+"Language-Team: Italian\n"
+"Language: it-IT\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:36
+msgid "Custom Fields for Woocommerce"
+msgstr ""
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:92
+msgctxt "Post Type General Name"
+msgid "Custom Tabs for Woocommerce"
+msgstr ""
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:93
+msgctxt "Post Type Singular Name"
+msgid "Tab"
+msgstr ""
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:116
+msgid "Custom Tab Post Type for Woocommerce"
+msgstr ""
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:144
+msgid "Back to Custom Tabs"
+msgstr "Torna alla lista Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:146
+msgid "This is a header global text for the tab"
+msgstr "Questa è una testata globale visualizzata nel Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:235
+msgid "Custom Tab Name"
+msgstr "Etichetta del Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:238
+msgid "Tab Visibility"
+msgstr "Visibile"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:239
+msgid "Date"
+msgstr "Data"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:269
+msgid "Visible"
+msgstr "Visible"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:271
+msgid "Hidden"
+msgstr "Nascosto"
+
+#. $id
+#: include/moodgiver.class.custom-tab-fields-manager.php:296
+msgid "Tab Custom Fields to include"
+msgstr "Campi personalizzati da includere"
+
+#. Name of the plugin
+msgid "Moodgiver Custom Tabs & Fields for Woocommerce"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce"
+msgstr ""
+
+#. Author of the plugin
+msgid "Antonio Nardone"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://antonionardone.com"
+msgstr ""
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:38
+#: admin/moodgiver-ctcf-admin-custom-fields.php:141
+msgid "Your settings are changed. Save your changes"
+msgstr ""
+"Le impostazioni sono cambiate. Clicca il pulsante Salva modifiche per "
+"renderle effettive"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:45
+#: include/moodgiver.class.custom-tab-fields-manager.php:236
+#: include/moodgiver.class.custom-tab-fields-manager.php:309
+msgid "Custom Fields"
+msgstr "Campi personalizzati"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:49
+msgid "Field Label"
+msgstr "Etichetta"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:51
+msgid "Enabled"
+msgstr "Visibile"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:52
+msgid "Description Tab"
+msgstr "Tab Descrizione"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:53
+#: include/moodgiver.class.custom-tab-fields-manager.php:94
+#: include/moodgiver.class.custom-tab-fields-manager.php:95
+msgid "Custom Tab"
+msgstr "Tab personalizzato"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:54
+msgid "Product Page Meta"
+msgstr "Medata del prodotto"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:112
+msgid "Add new field"
+msgstr "Aggiungi un nuovo campo"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:119
+msgid "Add a new field"
+msgstr "Aggiungi un nuovo campo"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:119
+#: admin/moodgiver-ctcf-admin-custom-fields.php:135
+#: admin/moodgiver-ctcf-admin-meta-box.php:169
+#: admin/moodgiver-ctcf-admin-meta-box.php:187
+msgid "Save changes"
+msgstr "Salva modifiche"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:210
+msgid "Database optimization"
+msgstr "Ottimizzazion Database"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:211
+msgid ""
+"This option checks if your products database has empty custom fields. You "
+"can clean all the empty data in order to improve your database performance"
+msgstr ""
+"Questa opzione verifica che nel database prodotti non esistano metadati "
+"senza alcun valore in modo da migliorare le performance del database."
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:213
+#: admin/moodgiver-ctcf-admin-custom-fields.php:214
+msgid "You have "
+msgstr "Trovati"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:213
+msgid "custom fields"
+msgstr "campi pesonalizzati"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:214
+msgid "records to optimize"
+msgstr "righe da ottimizzare"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:216
+msgid "Database optimized!"
+msgstr "Database ottimizzato!"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:219
+msgid "WARNING !"
+msgstr "ATTENZIONE!"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:220
+msgid ""
+"This operation will permanently delete record from your database. We suggest "
+"to make a copy before to proceed with the optimization"
+msgstr "Questa operazione "
+
+#: admin/moodgiver-ctcf-admin-meta-box.php:33
+#: include/moodgiver.class.custom-tab-fields-manager.php:237
+msgid "Order"
+msgstr "Ordine"
+
+#: admin/moodgiver-ctcf-admin-meta-box.php:39
+msgid "Active"
+msgstr "Attivo"
+
+#: admin/moodgiver-ctcf-admin-meta-box.php:44
+msgid "Global Footer"
+msgstr "Piè di pagina globale"
+
+#: admin/moodgiver-ctcf-admin-meta-box.php:115
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: admin/moodgiver-ctcf-admin-meta-box.php:117
+#: admin/moodgiver-ctcf-admin-meta-box.php:178
+msgid "Preview"
+msgstr "Anteprima"
+
+#: admin/moodgiver-ctcf-admin-meta-box.php:134
+msgid "Add Custom Field"
+msgstr "Aggiungi campo personalizzato"
+
+#: admin/moodgiver-ctcf-admin-meta-box.php:168
+#: admin/moodgiver-ctcf-admin-meta-box.php:186
+msgid "Close"
+msgstr "Chiudi"
+
+#: admin/moodgiver-ctcf-admin-sample-csv.php:8
+msgid "CSV Data Sample"
+msgstr "File CSV di esempio"
+
+#: admin/moodgiver-ctcf-admin-sample-csv.php:10
+msgid ""
+"Following is the CSV Sample you can use to import your product custom fields"
+msgstr ""
+"Scarica il file CSV di esempio per importare i campi personalizzati dei tuoi "
+"prodotti"
+
+#: admin/moodgiver-ctcf-admin-sample-csv.php:13
+msgid "How to import your custom fields"
+msgstr "Come importare i campi personalizzati (metadata)"
+
+#: admin/moodgiver-ctcf-admin-sample-csv.php:15
+msgid "create your CSV following the downloaded sample"
+msgstr "Crea il tuo CSV di importazione sulla base del CSV di esempio"
+
+#: admin/moodgiver-ctcf-admin-sample-csv.php:16
+msgid ""
+"import thru Woocommerce importer (update data if SKU exists option has to be "
+"checked"
+msgstr ""
+"importa con l'importatore Woocommerce (l'opzione aggiorna prodotto se COD "
+"esiste deve essere attiva"
+
+#: admin/moodgiver-ctcf-admin-sample-csv.php:17
+msgid "map the custom fields columng as Import as meta"
+msgstr "Mappa le colonne dei custom fields Importa come Meta"
+
+#: admin/moodgiver-ctcf-admin-sample-csv.php:20
+msgid "File is generated according your settings"
+msgstr "Il file generato è il risultato dei campi definiti dall'utente"
+
+#: admin/moodgiver-ctcf-admin-sample-csv.php:44
+msgid "Error saving file!"
+msgstr "Errore nella creazione del file!"
+
+#: admin/moodgiver-ctcf-dashboard.php:17
+msgid ""
+"Add rich text custom fields to your shop products. Filter custom fields to "
+"display on product categories."
+msgstr "Aggiungi campi personalizzati ai prodotti del tuo negozio"
+
+#: admin/moodgiver-ctcf-dashboard.php:19
+msgid "Create a Custom Field"
+msgstr "Crea Campo Personalizzato"
+
+#: admin/moodgiver-ctcf-dashboard.php:23
+msgid "Custom Tabs"
+msgstr "Tab Personalizzati"
+
+#: admin/moodgiver-ctcf-dashboard.php:24
+msgid ""
+"Add custom tabs to your shop products. Filter custom tabs to display on "
+"product categories."
+msgstr "Aggiungi Tab personalizzati ai prodotti del tuo negozio."
+
+#: admin/moodgiver-ctcf-dashboard.php:26
+msgid "Create a Custom Tab"
+msgstr "Crea Tab Personalizzato"
+
+#: admin/moodgiver-ctcf-dashboard.php:31
+msgid "Optimize your DB cleaning all unnecessary data."
+msgstr "Ottimizza il database"
+
+#: admin/moodgiver-ctcf-dashboard.php:33
+msgid "Optimize DB"
+msgstr "Ottimizza Database"
+
+#: admin/moodgiver-ctcf-dashboard.php:37
+msgid "Sample CSV for custom fields"
+msgstr "File CSV esempio per campi personalizzati"
+
+#: admin/moodgiver-ctcf-dashboard.php:39
+msgid ""
+"Import products custom fields using the sample CSV based on your settings"
+msgstr ""
+"Importa campi personalizzati dei prodotti usando il file CSV di esempio"
+
+#: admin/moodgiver-ctcf-dashboard.php:41
+msgid "Create sample CSV"
+msgstr "Crea file CSV"
+
+#: admin/moodgiver-ctcf-dashboard.php:45
+msgid "Documentation and Issues"
+msgstr "Documentazione e Supporto"
+
+#: admin/moodgiver-ctcf-dashboard.php:47
+msgid "Check our documentation in order to start using this plugin"
+msgstr "Leggi la documentazione per cominciare ad utilizzare il plugin"
+
+#: admin/moodgiver-ctcf-dashboard.php:49
+msgid "Read Docs"
+msgstr "Leggi Documentazione"
+
+#: admin/moodgiver-ctcf-dashboard.php:54
+msgid "License"
+msgstr "Licenza"
+
+#: admin/moodgiver-ctcf-dashboard.php:55
+msgid ""
+"Custom Tabs & Fields for Woocommerce is a <strong>free</strong> to use "
+"plugin released under GPL licence."
+msgstr ""
+"Custom Tabs & Fields for Woocommerce è un plugin <strong>free</strong> "
+"rilasciato secondo licenza GPL 3"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:96
+msgid "Tab Archives"
+msgstr "Archivio Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:97
+msgid "Parent Tab:"
+msgstr "Tab Genitore"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:98
+msgid "All Tabs"
+msgstr "Tutti i Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:99
+#: include/moodgiver.class.custom-tab-fields-manager.php:100
+msgid "Add New Tab"
+msgstr "Aggiungi nuovo Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:101
+msgid "New Tab"
+msgstr "Nuovo Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:102
+msgid "Edit Tab"
+msgstr "Modifica Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:103
+msgid "Update Tab"
+msgstr "Aggiorna Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:104
+msgid "View Tab"
+msgstr "Visualizza Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:105
+msgid "Search Tab"
+msgstr "Cerca Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:106
+msgid "Not found"
+msgstr "Non trovato"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:107
+msgid "Not found in Trash"
+msgstr "Non trovato"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:108
+msgid "Insert into tab"
+msgstr "Inserisci"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:109
+msgid "Uploaded to this tab"
+msgstr "Caricati per questo Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:110
+msgid "Tabs list"
+msgstr "Lista Tabs"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:111
+msgid "Tabs list navigation"
+msgstr "Navigazione Lista Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:112
+msgid "Filter tabs list"
+msgstr "Filtra lista Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:115
+msgid "Tab"
+msgstr "Tab"
+
+#. Description of the plugin
+msgid ""
+"Add custom tabs and custom rich text fields to Woocommerce products. Assign "
+"tabs to specific categories, assign custom fields to custom tabs. Assign "
+"custom fields to the default description tab. Create sample CSV file to be "
+"used to import custom fields data thru Woocommerce importer. Optimize DB for "
+"custom field data integrity."
+msgstr ""
+"Aggiungi tab e campi personalizzati (metadata) ai prodotti di Woocoomerce. "
+"Puoi assegnare i tab a specifiche categorie, assegnare i campi "
+"personalizzati a uno o più tab o al tab Descrizione di default. Ottimizza il "
+"DB dei metadata. Crea un file CSV di esempio per importare i tuoi metadata "
+"dall'importatore di Woocommerce."

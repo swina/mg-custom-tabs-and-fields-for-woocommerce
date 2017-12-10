@@ -14,45 +14,45 @@ function mg_wc_ctcf_main(){
 
   <div class="mg-col-3">
     <h3><?php echo __('Custom Fields','mg-tabs-and-fields-for-woocommcerce');?></h3>
-    <div class="content"><p><?php echo __('Add rich text custom fields to your shop products. Filter custom fields to display on product categories.','mg-tabs-and-fields-for-woocommcerce');?></p>
+    <div class="content"><p><?php _e('Add rich text custom fields to your shop products. Filter custom fields to display on product categories.','mood_ctcf');?></p>
     </div>
-    <a href="admin.php?page=menu-posts-mg_wc_custom_fields"><button class="button button-primary"><?php echo __('Create a Custom Field','mg-tabs-and-fields-for-woocommcerce');?></button></a>
+    <a href="admin.php?page=menu-posts-mg_wc_custom_fields"><button class="button button-primary"><?php _e('Create a Custom Field','mood_ctcf');?></button></a>
   </div>
 
   <div class="mg-col-3">
-    <h3><?php echo __('Custom Tabs','mg-tabs-and-fields-for-woocommcerce');?></h3>
-    <div class="content"><p><?php echo __( 'Add custom tabs to your shop products. Filter custom tabs to display on product categories.','mg-tabs-and-fields-for-woocommcerce');?></p>
+    <h3><?php _e('Custom Tabs','mood_ctcf');?></h3>
+    <div class="content"><p><?php _e( 'Add custom tabs to your shop products. Filter custom tabs to display on product categories.','mood_ctcf');?></p>
     </div>
-    <a href="edit.php?post_type=mg_wc_tab"><button class="button button-primary"><?php echo __( 'Create a Custom Tab' , 'mg-tabs-and-fields-for-woocommcerce');?></button></a>
+    <a href="edit.php?post_type=mg_wc_tab"><button class="button button-primary"><?php _e( 'Create a Custom Tab' , 'mood_ctcf');?></button></a>
   </div>
 
   <div class="mg-col-3">
     <h3>DB Optimize</h3>
-    <div class="content"><p>Optimize your DB cleaning all unnecessary data.</p>
+    <div class="content"><p><?php _e('Optimize your DB cleaning all unnecessary data.','mood_ctcf');?></p>
     </div>
-      <a href="admin.php?page=menu-posts-mg_wc_db_optimize"><button class="button button-primary">Optimize DB</button></a>
+      <a href="admin.php?page=menu-posts-mg_wc_db_optimize"><button class="button button-primary"><?php _e('Optimize DB','mood_ctcf');?></button></a>
   </div>
 
   <div class="mg-col-3">
-    <h3>Sample CSV for custom fields</h3>
+    <h3><?php _e('Sample CSV for custom fields','mood_ctcf');?></h3>
     <div class="content">
-      <p>Import products custom fields using the sample CSV based on your settings</p>
+      <p><?php _e('Import products custom fields using the sample CSV based on your settings','mood_ctcf');?></p>
     </div>
-    <a href=" admin.php?page=menu-posts-mg_wc_csv_sample" target="_blank"><button class="button button-primary">Create sample CSV</button></a>
+    <a href=" admin.php?page=menu-posts-mg_wc_csv_sample" target="_blank"><button class="button button-primary"><?php _e('Create sample CSV','mood_ctcf');?></button></a>
   </div>
 
   <div class="mg-col-3">
-    <h3>Documentation and Issues</h3>
+    <h3><?php _e('Documentation and Issues','mood_ctcf');?></h3>
     <div class="content">
-      <p>Check our documentation in order to start using this plugin</p>
+      <p><?php _e('Check our documentation in order to start using this plugin','mood_ctcf');?></p>
     </div>
-    <a href=" https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce" target="_blank"><button class="button button-primary">Read Docs</button></a>
+    <a href=" https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce" target="_blank"><button class="button button-primary"><?php _e('Read Docs','mood_ctcf');?></button></a>
   </div>
 
 
   <div class="mg-col-3">
-    <h3>License</h3>
-    <div class="content"><p>Custom Tabs & Fields for Woocommerce is a <strong>free</strong> to use plugin released under GPL licence.</p>
+    <h3><?php _e('License','mood_ctcf');?></h3>
+    <div class="content"><p><?php _e('Custom Tabs & Fields for Woocommerce is a <strong>free</strong> to use plugin released under GPL licence.','mood_ctcf');?></p>
     </div>
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
       <input type="hidden" name="cmd" value="_s-xclick">

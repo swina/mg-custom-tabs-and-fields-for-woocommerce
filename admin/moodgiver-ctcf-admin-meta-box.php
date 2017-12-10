@@ -29,14 +29,19 @@ function mood_ctcf_show_custom_meta_box_mg_wc_tab() {
 <!-- my custom value input -->
 <table>
   <tr>
-    <td width="25%">Order [<span class="order-value"><?php echo $order;?></span>]</td>
-    <td width="25%"><input type="range" min="1" max="20" class="mg_wc_tab_order" name="mg_wc_tab_order" value="<?php echo $order;?>"></td>
-    <td align="center"><input type="checkbox" name="mg_wc_tab_active" <?php echo $checked;?>> <label>Active</label>
+    <td width="25%">
+      <?php _e('Order','mood_ctcf');?> [<span class="order-value"><?php echo $order;?></span>]
+    </td>
+    <td width="25%">
+      <input type="range" min="1" max="20" class="mg_wc_tab_order" name="mg_wc_tab_order" value="<?php echo $order;?>">
+    </td>
+    <td align="center">
+      <input type="checkbox" name="mg_wc_tab_active" <?php echo $checked;?>> <label><?php _e('Active','mood_ctcf');?></label>
     </td>
   </tr>
   <tr>
     <td colspan="3">
-      <h4>Global Footer</h4>
+      <h4><?php _e('Global Footer','mood_ctcf');?></h4>
       <?php wp_editor( htmlspecialchars_decode($footer) , 'mg_wc_tab_footer' , $settings );
       ?>
     </td>
@@ -107,9 +112,9 @@ function mood_ctcf_show_product_meta_box_mg_wc_custom_fields(){
               <span class="btn-editor btn-cf" data-field="mg_cf_<?php echo $value['name'];?>" data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><span class="dashicons dashicons-edit"></span> Editor</span>
               <span class="btn-field-remove-saved btn-cf" data-field="<?php echo $value['name'];?>" style="cursor:pointer;">
                 <span class="dashicons dashicons-trash"></span>
-                Remove
+                <?php _e('Remove','mood_ctcf');?>
               </span>
-              <span class="btn-custom-field-preview btn-cf" data-field="<?php echo $value['name'];?>" style="cursor:pointer" data-toggle="modal" data-target="cf_preview_modal"><span class="dashicons dashicons-visibility"></span> Preview</span>
+              <span class="btn-custom-field-preview btn-cf" data-field="<?php echo $value['name'];?>" style="cursor:pointer" data-toggle="modal" data-target="cf_preview_modal"><span class="dashicons dashicons-visibility"></span> <?php _e('Preview','mood_ctcf');?></span>
             </div>
           <?php
           } else {
@@ -126,7 +131,7 @@ function mood_ctcf_show_product_meta_box_mg_wc_custom_fields(){
     </div>
     <div class="form-field" style="margin-top:20px;margin-bottom:20px;padding:10px;border-top:1px solid #eaeaea;border-bottom:1px solid #eaeaea;width:100%;display:block;font-size:1.3em;">
 
-    Add Custom Field <select class="select_cfmb">
+    <?php _e('Add Custom Field','mood_ctcf');?> <select class="select_cfmb">
       <option value=""></option>
       <?php
         foreach ( $aFieldsAdd AS $key=>$value ){
@@ -160,8 +165,8 @@ function mood_ctcf_show_product_meta_box_mg_wc_custom_fields(){
         wp_editor( htmlspecialchars_decode($content) , 'mg_cf_editor',$settings );
       ?>
       </div>
-      <div class="modal-footer"><button class="button button-default" type="button" data-dismiss="modal">Close</button>
-        <button class="button button-primary btn-save-cfmb" type="button">Save changes</button></div>
+      <div class="modal-footer"><button class="button button-default" type="button" data-dismiss="modal"><?php _e('Close','mood_ctcf');?></button>
+        <button class="button button-primary btn-save-cfmb" type="button"><?php _e('Save changes','mood_ctcf');?></button></div>
       </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
@@ -170,7 +175,7 @@ function mood_ctcf_show_product_meta_box_mg_wc_custom_fields(){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-          <h4 class="modal-title">Custom Field Preview</h4>
+          <h4 class="modal-title">Custom Field <?php _e('Preview','mood_ctcf');?></h4>
       </div>
 
       <div class="modal-body">
@@ -178,8 +183,8 @@ function mood_ctcf_show_product_meta_box_mg_wc_custom_fields(){
         </p>
 
       </div>
-      <div class="modal-footer"><button class="button button-default" type="button" data-dismiss="modal">Close</button>
-        <button class="button button-primary btn-save-cfmb" type="button">Save changes</button></div>
+      <div class="modal-footer"><button class="button button-default" type="button" data-dismiss="modal"><?php _e('Close','mood_ctcf');?></button>
+        <button class="button button-primary btn-save-cfmb" type="button"><?php _e('Save changes','mood_ctcf');?></button></div>
       </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->

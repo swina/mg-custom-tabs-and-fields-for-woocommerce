@@ -89,31 +89,31 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 		//create tab post type
     public function mood_ctcf_custom_tab_post_type(){
     			$labels = array(
-  				'name'                  => _x( 'Custom Tabs for Woocommerce', 'Post Type General Name', 'mg_custom_tab_manager' ),
-  				'singular_name'         => _x( 'Tab', 'Post Type Singular Name', 'mg_custom_tab_manager' ),
-  				'menu_name'             => __( 'Custom Tab', 'mg_custom_tab_manager' ),
-  				'name_admin_bar'        => __( 'Custom Tab', 'mg_custom_tab_manager' ),
-  				'archives'              => __( 'Tab Archives', 'mg_custom_tab_manager' ),
-  				'parent_item_colon'     => __( 'Parent Tab:', 'mg_custom_tab_manager' ),
-  				'all_items'             => __( 'All Tabs', 'mg_custom_tab_manager' ),
-  				'add_new_item'          => __( 'Add New Tab', 'mg_custom_tab_manager' ),
-  				'add_new'               => __( 'Add New Tab', 'mg_custom_tab_manager' ),
-  				'new_item'              => __( 'New Tab', 'mg_custom_tab_manager' ),
-  				'edit_item'             => __( 'Edit Tab', 'mg_custom_tab_manager' ),
-  				'update_item'           => __( 'Update Tab', 'mg_custom_tab_manager' ),
-  				'view_item'             => __( 'View Tab', 'mg_custom_tab_manager' ),
-  				'search_items'          => __( 'Search Tab', 'mg_custom_tab_manager' ),
-  				'not_found'             => __( 'Not found', 'mg_custom_tab_manager' ),
-  				'not_found_in_trash'    => __( 'Not found in Trash', 'mg_custom_tab_manager' ),
-  				'insert_into_item'      => __( 'Insert into tab', 'mg_custom_tab_manager' ),
-  				'uploaded_to_this_item' => __( 'Uploaded to this tab', 'mg_custom_tab_manager' ),
-  				'items_list'            => __( 'Tabs list', 'mg_custom_tab_manager' ),
-  				'items_list_navigation' => __( 'Tabs list navigation', 'mg_custom_tab_manager' ),
-  				'filter_items_list'     => __( 'Filter tabs list', 'mg_custom_tab_manager' ),
+  				'name'                  => _x( 'Custom Tabs for Woocommerce', 'Post Type General Name', 'mood_ctcf' ),
+  				'singular_name'         => _x( 'Tab', 'Post Type Singular Name', 'mood_ctcf' ),
+  				'menu_name'             => __( 'Custom Tab', 'mood_ctcf' ),
+  				'name_admin_bar'        => __( 'Custom Tab', 'mood_ctcf' ),
+  				'archives'              => __( 'Tab Archives', 'mood_ctcf' ),
+  				'parent_item_colon'     => __( 'Parent Tab:', 'mood_ctcf' ),
+  				'all_items'             => __( 'All Tabs', 'mood_ctcf' ),
+  				'add_new_item'          => __( 'Add New Tab', 'mood_ctcf' ),
+  				'add_new'               => __( 'Add New Tab', 'mood_ctcf' ),
+  				'new_item'              => __( 'New Tab', 'mood_ctcf' ),
+  				'edit_item'             => __( 'Edit Tab', 'mood_ctcf' ),
+  				'update_item'           => __( 'Update Tab', 'mood_ctcf' ),
+  				'view_item'             => __( 'View Tab', 'mood_ctcf' ),
+  				'search_items'          => __( 'Search Tab', 'mood_ctcf' ),
+  				'not_found'             => __( 'Not found', 'mood_ctcf' ),
+  				'not_found_in_trash'    => __( 'Not found in Trash', 'mood_ctcf' ),
+  				'insert_into_item'      => __( 'Insert into tab', 'mood_ctcf' ),
+  				'uploaded_to_this_item' => __( 'Uploaded to this tab', 'mood_ctcf' ),
+  				'items_list'            => __( 'Tabs list', 'mood_ctcf' ),
+  				'items_list_navigation' => __( 'Tabs list navigation', 'mood_ctcf' ),
+  				'filter_items_list'     => __( 'Filter tabs list', 'mood_ctcf' ),
   			);
   			$args = array(
-  				'label'                 => __( 'Tab', 'mg_custom_tab_manager' ),
-  				'description'           => __( 'Custom Tab Post Type for Woocommerce', 'mg_custom_tab_manager' ),
+  				'label'                 => __( 'Tab', 'mood_ctcf' ),
+  				'description'           => __( 'Custom Tab Post Type for Woocommerce', 'mood_ctcf' ),
   				'labels'                => $labels,
   				'supports'              => array( 'title', 'editor', ),
   				'hierarchical'          => false,
@@ -140,9 +140,9 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
       if( in_array( $post_type, $post_types ) )
 
       echo '<script>jQuery(document).ready(function(){
-        jQuery("#post,#submitpost").prepend("<div class=\'misc-pub-section\'><span><a href=\'edit.php?post_type=mg_wc_tab\'>Back to Custom Tabs</a></span></div>");
-      jQuery("#post-body-content").append(\'<div>This is a header global text for the tab</div>\');});</script>
-        <style>#post-preview, #view-post-btn{display: none;}</style>';
+        jQuery("#post,#submitpost").prepend("<div class=\'misc-pub-section\'><span><a href=\'edit.php?post_type=mg_wc_tab\'>Back</a></span></div>");
+      jQuery("#post-body-content").append(\'<div>Global Header</div>\');});</script>
+      <style>#post-preview, #view-post-btn{display: none;}</style>';
 
     }
 
@@ -230,11 +230,11 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
     public function mood_tabs_edit_columns($columns){
       $columns = array(
 				'cb' 			=> '<input type="checkbox" />',
-				'title' 		=> __( 'Custom Tab Name', 'mg-custom-tabs-manager' ),
-        'cf'        => __( 'Custom Fields' , 'mg-custom-tabs-manager'),
-				'order' 		=> __( 'Order', 'mg-custom-tabs-manager' ),
-				'visibility' 	=> __( 'Tab Visibility', 'mg-custom-tabs-manager' ),
-				'date' 			=> __( 'Date', 'mg-custom-tabs-manager' ),
+				'title' 		=> __( 'Custom Tab Name', 'mood_ctcf' ),
+        'cf'        => __( 'Custom Fields' , 'mood_ctcf'),
+				'order' 		=> __( 'Order', 'mood_ctcf' ),
+				'visibility' 	=> __( 'Tab Visibility', 'mood_ctcf' ),
+				'date' 			=> __( 'Date', 'mood_ctcf' ),
 			);
 			return $columns;
     }
@@ -264,9 +264,9 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 				case 'visibility' :
 					$visibility = get_post_meta( $post_id, 'mg_wc_tab_active', true );
 					if ( !empty( $visibility ) ) {
-            echo 'Visible';
+            _e('Visible','mood_ctcf');
 					}else {
-            echo 'Hidden';
+            _e('Hidden','mood_ctcf');
 					}
 					break;
 
@@ -291,7 +291,7 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 
       add_meta_box(
        'custom_meta_box-mg_wc_tab_fields',       // $id
-       'Tab Custom Fields to include',                        // $title
+       'Custom Fields',                        // $title
        'mood_ctcf_show_custom_meta_box_mg_wc_tab_fields',  // $callback
        'mg_wc_tab',                       // $page
        'side',                            // $context
@@ -304,7 +304,7 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
     function mood_ctcf_custom_fields_add_meta_boxes(){
       add_meta_box(
        'custom_meta_box-mg_wc_custom_fields',       // $id
-       'Custom Fields',                             // $title
+       _e('Custom Fields','mood_ctcf'),                             // $title
        'mood_ctcf_show_product_meta_box_mg_wc_custom_fields',  // $callback
        'product',                         // $page
        'normal',                          // $context
