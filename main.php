@@ -34,7 +34,7 @@ function mood_ctcf_custom_fields(){
 }
 
 function moodgiver_ctcf_load_plugin_textdomain() {
-  load_plugin_textdomain( 'mood_ctcf', FALSE, basename( dirname( __FILE__ ) ) );
+  load_plugin_textdomain( 'mood_ctcf', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'moodgiver_ctcf_load_plugin_textdomain' );
 

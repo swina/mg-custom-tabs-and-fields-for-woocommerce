@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Moodgiver Custom Tabs & Fields for Woocommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-10 19:00+0000\n"
-"PO-Revision-Date: 2017-12-10 19:03+0000\n"
+"POT-Creation-Date: 2017-12-10 19:20+0000\n"
+"PO-Revision-Date: 2017-12-10 19:23+0000\n"
 "Last-Translator: swina.allen@gmail.com <swina.allen@gmail.com>\n"
 "Language-Team: Italian\n"
 "Language: it-IT\n"
@@ -12,6 +12,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:16
+msgid "Custom Fields Layout settings"
+msgstr "Impostazioni di visualizzazione dei campi personalizzati"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:17
+msgid "Table"
+msgstr "Tabella"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:18
+msgid "Paragraph"
+msgstr "Paragrafo"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:19
+msgid ""
+"This option sets the layout output of the custom fields in the product page"
+msgstr ""
+"Questa opzione imposta le caratteristiche di visualizzazione dei campi "
+"personalizzati nella pagina prodotto"
 
 #: admin/moodgiver-ctcf-admin-custom-fields.php:36
 msgid "Custom Fields for Woocommerce"
@@ -30,39 +49,6 @@ msgstr ""
 #: include/moodgiver.class.custom-tab-fields-manager.php:116
 msgid "Custom Tab Post Type for Woocommerce"
 msgstr ""
-
-#: include/moodgiver.class.custom-tab-fields-manager.php:144
-msgid "Back to Custom Tabs"
-msgstr "Torna alla lista Tab"
-
-#: include/moodgiver.class.custom-tab-fields-manager.php:146
-msgid "This is a header global text for the tab"
-msgstr "Questa è una testata globale visualizzata nel Tab"
-
-#: include/moodgiver.class.custom-tab-fields-manager.php:235
-msgid "Custom Tab Name"
-msgstr "Etichetta del Tab"
-
-#: include/moodgiver.class.custom-tab-fields-manager.php:238
-msgid "Tab Visibility"
-msgstr "Visibile"
-
-#: include/moodgiver.class.custom-tab-fields-manager.php:239
-msgid "Date"
-msgstr "Data"
-
-#: include/moodgiver.class.custom-tab-fields-manager.php:269
-msgid "Visible"
-msgstr "Visible"
-
-#: include/moodgiver.class.custom-tab-fields-manager.php:271
-msgid "Hidden"
-msgstr "Nascosto"
-
-#. $id
-#: include/moodgiver.class.custom-tab-fields-manager.php:296
-msgid "Tab Custom Fields to include"
-msgstr "Campi personalizzati da includere"
 
 #. Name of the plugin
 msgid "Moodgiver Custom Tabs & Fields for Woocommerce"
@@ -88,8 +74,8 @@ msgstr ""
 "renderle effettive"
 
 #: admin/moodgiver-ctcf-admin-custom-fields.php:45
-#: include/moodgiver.class.custom-tab-fields-manager.php:236
-#: include/moodgiver.class.custom-tab-fields-manager.php:309
+#: include/moodgiver.class.custom-tab-fields-manager.php:234
+#: include/moodgiver.class.custom-tab-fields-manager.php:307
 msgid "Custom Fields"
 msgstr "Campi personalizzati"
 
@@ -170,7 +156,7 @@ msgid ""
 msgstr "Questa operazione "
 
 #: admin/moodgiver-ctcf-admin-meta-box.php:33
-#: include/moodgiver.class.custom-tab-fields-manager.php:237
+#: include/moodgiver.class.custom-tab-fields-manager.php:235
 msgid "Order"
 msgstr "Ordine"
 
@@ -377,6 +363,26 @@ msgstr "Filtra lista Tab"
 #: include/moodgiver.class.custom-tab-fields-manager.php:115
 msgid "Tab"
 msgstr "Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:233
+msgid "Custom Tab Name"
+msgstr "Etichetta del Tab"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:236
+msgid "Tab Visibility"
+msgstr "Visibile"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:237
+msgid "Date"
+msgstr "Data"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:267
+msgid "Visible"
+msgstr "Visible"
+
+#: include/moodgiver.class.custom-tab-fields-manager.php:269
+msgid "Hidden"
+msgstr "Nascosto"
 
 #. Description of the plugin
 msgid ""

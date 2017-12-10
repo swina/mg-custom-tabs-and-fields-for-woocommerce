@@ -13,10 +13,10 @@ function mood_ctcf_settings(){
     $customfield_layout = $options['customfields_layout'];
   }
   ?>
-  <h3>Custom Fields Layout settings</h3>
-  <input type="radio" name="mood_ctcf_settings_layout" value="table" <?php echo esc_attr($customfield_layout) == 'table' ? 'checked="checked"' : '';?>> Table
-  <input type="radio" name="mood_ctcf_settings_layout" value="paragraph" <?php echo esc_attr($customfield_layout) == 'paragraph' ? 'checked="checked"' : '';?>> Paragraph
-  <p><small>This option sets the layout output of the custom fields in the product page</small></p>
+  <h3><?php _e('Custom Fields Layout settings','mood_ctcf');?></h3>
+  <input type="radio" name="mood_ctcf_settings_layout" value="table" <?php echo esc_attr($customfield_layout) == 'table' ? 'checked="checked"' : '';?>> <?php _e('Table','mood_ctcf');?>
+  <input type="radio" name="mood_ctcf_settings_layout" value="paragraph" <?php echo esc_attr($customfield_layout) == 'paragraph' ? 'checked="checked"' : '';?>> <?php _e('Paragraph','mood_ctcf');?>
+  <p><small><?php _e('This option sets the layout output of the custom fields in the product page','mood_ctcf');?></small></p>
   <?php
 }
 
