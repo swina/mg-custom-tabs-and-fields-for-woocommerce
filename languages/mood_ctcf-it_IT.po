@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Moodgiver Custom Tabs & Fields for Woocommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-10 19:20+0000\n"
-"PO-Revision-Date: 2017-12-10 19:23+0000\n"
+"PO-Revision-Date: 2017-12-10 19:34+0000\n"
 "Last-Translator: swina.allen@gmail.com <swina.allen@gmail.com>\n"
 "Language-Team: Italian\n"
 "Language: it-IT\n"
@@ -12,25 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
-
-#: admin/moodgiver-ctcf-admin-custom-fields.php:16
-msgid "Custom Fields Layout settings"
-msgstr "Impostazioni di visualizzazione dei campi personalizzati"
-
-#: admin/moodgiver-ctcf-admin-custom-fields.php:17
-msgid "Table"
-msgstr "Tabella"
-
-#: admin/moodgiver-ctcf-admin-custom-fields.php:18
-msgid "Paragraph"
-msgstr "Paragrafo"
-
-#: admin/moodgiver-ctcf-admin-custom-fields.php:19
-msgid ""
-"This option sets the layout output of the custom fields in the product page"
-msgstr ""
-"Questa opzione imposta le caratteristiche di visualizzazione dei campi "
-"personalizzati nella pagina prodotto"
 
 #: admin/moodgiver-ctcf-admin-custom-fields.php:36
 msgid "Custom Fields for Woocommerce"
@@ -66,6 +47,25 @@ msgstr ""
 msgid "https://antonionardone.com"
 msgstr ""
 
+#: admin/moodgiver-ctcf-admin-custom-fields.php:16
+msgid "Custom Fields Layout settings"
+msgstr "Impostazioni di visualizzazione dei campi personalizzati"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:17
+msgid "Table"
+msgstr "Tabella"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:18
+msgid "Paragraph"
+msgstr "Paragrafo"
+
+#: admin/moodgiver-ctcf-admin-custom-fields.php:19
+msgid ""
+"This option sets the layout output of the custom fields in the product page"
+msgstr ""
+"Questa opzione imposta le caratteristiche di visualizzazione dei campi "
+"personalizzati nella pagina prodotto"
+
 #: admin/moodgiver-ctcf-admin-custom-fields.php:38
 #: admin/moodgiver-ctcf-admin-custom-fields.php:141
 msgid "Your settings are changed. Save your changes"
@@ -99,7 +99,7 @@ msgstr "Tab personalizzato"
 
 #: admin/moodgiver-ctcf-admin-custom-fields.php:54
 msgid "Product Page Meta"
-msgstr "Medata del prodotto"
+msgstr "Metadata Pagina Prodotto"
 
 #: admin/moodgiver-ctcf-admin-custom-fields.php:112
 msgid "Add new field"
