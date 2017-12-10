@@ -21,27 +21,29 @@ function mood_ctcf_create_sample_csv(){
   <?php
   $heading = 'SKU,';
   $custom_fields = get_option('mg_wc_cfmb');
-  foreach ( $custom_fields AS $cf ){
-    $heading .= 'Meta: mg_cf_'.$cf['name'].',';
+  if ( $custom_fields ){
+    foreach ( $custom_fields AS $cf ){
+      $heading .= 'Meta: mg_cf_'.$cf['name'].',';
+    }
+    $row = '0000001,';
+    foreach ( $custom_fields AS $cf ){
+      $row .= '[data for '.$cf['label'].'],';
+    }
+    $heading = rtrim($heading,',');
+    $row = rtrim($row,',');
+    $upload = wp_upload_dir();
+    $upload_dir = $upload['basedir'];
+    $plugin_name = $plugin_data['Name'];
+    $upload_dir = $upload_dir . '/mg-tabs-and-fields-for-woocommerce';
+    if (! is_dir($upload_dir)) {
+      mkdir( $upload_dir, 0700 );
+    }
+    $filename = 'custom_fields_csv_sample.csv';
+    $url = content_url().'/uploads/mg-tabs-and-fields-for-woocommerce';
+    global $wp_filesystem;
+    if ( ! $wp_filesystem->put_contents( $upload_dir .'/'.$filename, $heading.chr(10).$row, FS_CHMOD_FILE) ) {
+      _e('Error saving file!','mood_ctcf');
+    }
+    echo '<a href="'.$url.'/'.$filename.'" target="_blank" class="button button-primary">Download CSV Sample</a>';
   }
-  $row = '0000001,';
-  foreach ( $custom_fields AS $cf ){
-    $row .= '[data for '.$cf['label'].'],';
-  }
-  $heading = rtrim($heading,',');
-  $row = rtrim($row,',');
-  $upload = wp_upload_dir();
-  $upload_dir = $upload['basedir'];
-  $plugin_name = $plugin_data['Name'];
-  $upload_dir = $upload_dir . '/mg-tabs-and-fields-for-woocommerce';
-  if (! is_dir($upload_dir)) {
-     mkdir( $upload_dir, 0700 );
-  }
-  $filename = 'custom_fields_csv_sample.csv';
-  $url = content_url().'/uploads/mg-tabs-and-fields-for-woocommerce';
-  global $wp_filesystem;
-  if ( ! $wp_filesystem->put_contents( $upload_dir .'/'.$filename, $heading.chr(10).$row, FS_CHMOD_FILE) ) {
-    _e('Error saving file!','mood_ctcf');
-  }
-  echo '<a href="'.$url.'/'.$filename.'" target="_blank" class="button button-primary">Download CSV Sample</a>';
 }

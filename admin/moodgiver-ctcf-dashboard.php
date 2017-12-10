@@ -38,7 +38,7 @@ function mg_wc_ctcf_main(){
     <div class="content">
       <p><?php _e('Import products custom fields using the sample CSV based on your settings','mood_ctcf');?></p>
     </div>
-    <a href=" admin.php?page=menu-posts-mg_wc_csv_sample" target="_blank"><button class="button button-primary"><?php _e('Create sample CSV','mood_ctcf');?></button></a>
+    <a href=" admin.php?page=menu-posts-mg_wc_csv_sample"><button class="button button-primary"><?php _e('Create sample CSV','mood_ctcf');?></button></a>
   </div>
 
   <div class="mg-col-3">
