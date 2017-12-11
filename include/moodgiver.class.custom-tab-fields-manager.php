@@ -304,7 +304,7 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
     function mood_ctcf_custom_fields_add_meta_boxes(){
       add_meta_box(
        'custom_meta_box-mg_wc_custom_fields',       // $id
-       _e('Custom Fields','mood_ctcf'),                             // $title
+       'Custom Fields',                             // $title
        'mood_ctcf_show_product_meta_box_mg_wc_custom_fields',  // $callback
        'product',                         // $page
        'normal',                          // $context
