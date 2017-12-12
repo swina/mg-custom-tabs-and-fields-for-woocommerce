@@ -8,14 +8,12 @@
 * Author URI: https://antonionardone.com
 * License: GPL3
 * Date: december 2017
-* Text-domain: mood_ctcf
 */
 
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-/* required files */
-if ( is_admin() ){
+  /* required files */
   /* main class functions */
   require_once dirname( __FILE__ ) . '/include/moodgiver.class.custom-tab-fields-manager.php';
   /* create CSV sample file to import data for products custom fields */
@@ -26,7 +24,6 @@ if ( is_admin() ){
   require_once dirname( __FILE__ ) . '/admin/moodgiver-ctcf-admin-custom-fields.php';
   /* plugin dashboard */
   require_once dirname( __FILE__ ) . '/admin/moodgiver-ctcf-dashboard.php';
-}
 
 /* custom fields callback */
 function mood_ctcf_custom_fields(){

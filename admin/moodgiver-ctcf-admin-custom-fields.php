@@ -92,7 +92,12 @@ function mood_ctcf_custom_fields_manager(){
           </td>
 
           <td>
-            <?php echo $custom_tab;?>
+
+            <?php
+            //nonce field
+            echo $custom_tab;
+
+            ?>
           </td>
 
           <td>
@@ -116,6 +121,7 @@ function mood_ctcf_custom_fields_manager(){
 
     <tr>
       <td colspan="6">
+        <?php wp_nonce_field('save_custom_fields','fields_nonce');?>
         <span class="button button-default btn-show" data-target="cfmb_new_option"><?php _e('Add a new field','mood_ctcf');?></span> <button class="button button-primary"><?php _e('Save changes','mood_ctcf');?></button>
       </td>
     </tr>
@@ -150,6 +156,7 @@ function mood_ctcf_custom_fields_manager(){
 //save custom fields to option mg_wc_cfmb
 function mood_ctcf_custom_fields_save(){
   $value = get_option('mg_wc_cfmb');
+  if ( wp_verify_nonce( $_POST['fields_nonce'], 'save_custom_fields' ) && current_user_can('administrator') ){
   $options = [];
   if ( is_array($_POST) ){
     foreach (array_keys($_POST) as $field){
@@ -188,8 +195,11 @@ function mood_ctcf_custom_fields_save(){
       update_option('mood_ctcf_settings',$a);
     }
   }
-
   return $options;
+} else {
+  return $value;
+}
+
 }
 
 
@@ -197,21 +207,24 @@ function mood_ctcf_custom_fields_save(){
 function mood_ctcf_db_optimize(){
   global $wpdb;
   $optimized = false;
-  if ( isset($_POST['mg_wc_cfmb_optimize']) && int($_POST['mg_wc_cfmb_optimize']) == 1 ){
-    $wpdb->query("DELETE FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE 'mg_cf_%' AND meta_value = ''");
-    $optimized = true;
+  if ( wp_verify_nonce( $_POST['run_db_optimize'], 'run_optimize' ) && current_user_can('administrator') ){
+    if ( isset($_POST['mg_wc_cfmb_optimize']) && int($_POST['mg_wc_cfmb_optimize']) == 1 ){
+      $wpdb->query("DELETE FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE 'mg_cf_%' AND meta_value = ''");
+      $optimized = true;
+    }
+    $optimize = $wpdb->query("SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE 'mg_cf_%' AND meta_value = ''");
+    $current = $wpdb->query("SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE 'mg_cf_%'");
   }
-  $optimize = $wpdb->query("SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE 'mg_cf_%' AND meta_value = ''");
-  $current = $wpdb->query("SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE 'mg_cf_%'");
   ?>
   <form method="POST">
+    <?php wp_nonce_field('run_db_otpimize','run_optimize');?>
     <input type="hidden" name="mg_wc_cfmb_optimize" value="1">
     <h1>Custom Tabs & Fields for Woocommerce</h1>
     <h3><?php _e('Database optimization','mood_ctcf');?></h3>
     <p><?php _e('This option checks if your products database has empty custom fields. You can clean all the empty data in order to improve your database performance','mood_ctcf');?></p>
     <p>
-    <?php _e('You have ','mood_ctcf');echo esc_attr($current);?> <?php _e('custom fields','mood_ctcf');?>.<br>
-    <?php _e('You have ','mood_ctcf');echo esc_attr($optimize);?> <?php _e('records to optimize','mood_ctcf');?>.
+    <?php _e('You have ','mood_ctcf'); echo (int)($current);?> <?php _e('custom fields','mood_ctcf');?>.<br>
+    <?php _e('You have ','mood_ctcf'); echo (int)($optimize);?> <?php _e('records to optimize','mood_ctcf');?>.
     </p>
     <?php if ( $optimized ) { ?> <h3><?php _e('Database optimized!','mood_ctcf');?></h3> <?php }?>
     <?php if ( (int)$optimize > 0 ) {

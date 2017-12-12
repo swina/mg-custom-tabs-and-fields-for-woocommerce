@@ -148,8 +148,10 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 
     //save post meta
     public function mood_ctcf_tab_save_post( $post_id ) {
-		    $slug = 'mg_wc_tab';
-		    if( get_post_type($post_id) !== 'mg_wc_tab' ){
+		  $slug = 'mg_wc_tab';
+			if ( wp_verify_nonce( $_POST['save_custom_tab'], 'tabs_nonce' ) ){
+
+				if( get_post_type($post_id) !== 'mg_wc_tab' ){
 		    	return;
 		    }
 
@@ -176,17 +178,17 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 		        update_post_meta( $post_id, 'mg_wc_tab_footer', $_REQUEST['mg_wc_tab_footer'] );
 		    }
 
-          $custom_fields = get_option('mg_wc_cfmb');
-					if ( $custom_fields ){
-          foreach ( $custom_fields AS $key=>$cf ){
+        $custom_fields = get_option('mg_wc_cfmb');
+				if ( $custom_fields ){
+        	foreach ( $custom_fields AS $key=>$cf ){
             if ( isset($_REQUEST['mg_wc_tab_custom_field_'.$cf['name']])) {
             	update_post_meta( $post_id, 'mg_wc_tab_custom_field_' .$cf['name'], TRUE );
 						} else {
 							delete_post_meta( $post_id, 'mg_wc_tab_custom_field_' .$cf['name'] );
 						}
           }
-					}
-
+				}
+			}
 		}
 
 		//get saved tabs

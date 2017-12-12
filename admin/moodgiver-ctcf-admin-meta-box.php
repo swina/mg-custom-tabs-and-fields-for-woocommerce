@@ -13,7 +13,7 @@ function mood_ctcf_show_custom_meta_box_mg_wc_tab() {
     'textarea_rows' => 5,
   );
   // Use nonce for verification to secure data sending
-  //wp_nonce_field( basename( __FILE__ ), 'mg_wc_tab_nonce' );
+  wp_nonce_field('save_custom_tab','tabs_nonce');
   $order = $post;
   $order = get_post_meta( $post->ID, 'mg_wc_tab_order', true );
   $active = get_post_meta( $post->ID, 'mg_wc_tab_active', true );
