@@ -454,17 +454,19 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 			$terms = get_the_terms($post_id,'product_cat');
       $mg_wc_tabs = $this->mood_ctcf_get_tabs();
       $found = false;
-      foreach ( $mg_wc_tabs AS $tab ){
-				$category = $tab['category'];
-				foreach ( $category AS $mycat ){
-          foreach ( $terms AS $k=>$cat ){
-            if ( $cat->term_id == $mycat->term_id ){
-              $found = true;
-              break;
-            }
-          }
-        }
-      }
+			if (is_array($terms) ){
+	      foreach ( $mg_wc_tabs AS $tab ){
+					$category = $tab['category'];
+					foreach ( $category AS $mycat ){
+	          foreach ( $terms AS $k=>$cat ){
+	            if ( $cat->term_id == $mycat->term_id ){
+	              $found = true;
+	              break;
+	            }
+	          }
+	        }
+	      }
+			}
       return $found;
     }
 
