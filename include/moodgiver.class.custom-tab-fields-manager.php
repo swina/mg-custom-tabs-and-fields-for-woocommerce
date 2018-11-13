@@ -15,8 +15,8 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
       add_action('admin_menu', array ( $this , 'mood_ctcf_custom_tab_submenu') );
       add_filter( 'post_row_actions', array( $this, 'mood_ctcf_remove_tabs_view_option' ), 10, 2 );
       add_action( 'admin_head-post-new.php', array( $this, 'mood_ctcf_tab_head_extra' ) );
+			add_action( 'save_post', array( $this, 'mood_ctcf_tab_save_post' ) );
 			add_action( 'admin_head-post.php', array( $this, 'mood_ctcf_tab_head_extra' ) );
-      add_action( 'save_post', array( $this, 'mood_ctcf_tab_save_post' ) );
 			add_filter( 'manage_edit-mg_wc_tab_columns', array( $this, 'mood_tabs_edit_columns' ), 10 );
       add_filter( 'manage_mg_wc_tab_posts_custom_column', array( $this, 'mood_wc_tabs_custom_columns' ), 2, 10 );
       add_action( 'add_meta_boxes', array ( $this , 'mood_ctcf_tab_add_meta_boxes') );
@@ -149,14 +149,8 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
     //save post meta
     public function mood_ctcf_tab_save_post( $post_id ) {
 		  $slug = 'mg_wc_tab';
-			if ( wp_verify_nonce( $_POST['save_custom_tab'], 'tabs_nonce' ) ){
-
 				if( get_post_type($post_id) !== 'mg_wc_tab' ){
 		    	return;
-		    }
-
-		    if ( $_POST && $slug !== $_POST['post_type'] ) {
-		        return;
 		    }
 
 		    if ( !current_user_can( 'edit_post', $post_id ) ) {
@@ -169,8 +163,10 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 
         # checkboxes are submitted if checked, absent if not
 		    if ( isset( $_REQUEST['mg_wc_tab_active'] ) ) {
+						print_r('<h1>' . $post_id .'</h1>');
+
 		        update_post_meta($post_id, 'mg_wc_tab_active', TRUE);
-		    }else {
+		    } else {
 		        update_post_meta($post_id, 'mg_wc_tab_active', FALSE);
 		    }
 
@@ -188,7 +184,6 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 						}
           }
 				}
-			}
 		}
 
 		//get saved tabs
@@ -456,21 +451,20 @@ if( !class_exists('mood_ctcf_custom_tab_manager') ):
 
 		//search if a tab is assigned to the current product category
     public function woocommerce_product_custom_tab_category($post_id){
-      $terms = get_the_terms($post_id,'product_cat');
+			$terms = get_the_terms($post_id,'product_cat');
       $mg_wc_tabs = $this->mood_ctcf_get_tabs();
       $found = false;
       foreach ( $mg_wc_tabs AS $tab ){
-        $categories = $tab['category'];
-        foreach ( $categories AS $category ){
+				$category = $tab['category'];
+				foreach ( $category AS $mycat ){
           foreach ( $terms AS $k=>$cat ){
-            if ( $cat->slug == $category->slug ){
+            if ( $cat->term_id == $mycat->term_id ){
               $found = true;
               break;
             }
           }
         }
       }
-
       return $found;
     }
 

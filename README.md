@@ -60,3 +60,6 @@ Custom Tags And Fields for Woocommerce is completely free.
 ## Support
 For any issue please submit here:
 If you have any issue please open an issue here https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce/issues
+
+## Releases
+0.2 - Fixed custom tabs display in the product page

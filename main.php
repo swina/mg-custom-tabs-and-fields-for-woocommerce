@@ -3,7 +3,7 @@
 * Plugin Name: Moodgiver Custom Tabs & Fields for Woocommerce
 * Plugin URI: https://github.com/swina/mg-custom-tabs-and-fields-for-woocommerce
 * Description: Add custom tabs and custom rich text fields to Woocommerce products. Assign tabs to specific categories, assign custom fields to custom tabs. Assign custom fields to the default description tab. Create sample CSV file to be used to import custom fields data thru Woocommerce importer. Optimize DB for custom field data integrity.
-* Version: 0.1
+* Version: 0.2
 * Author: Antonio Nardone
 * Author URI: https://antonionardone.com
 * License: GPL3
